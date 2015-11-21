@@ -147,14 +147,11 @@ public class AtendenteView extends javax.swing.JFrame {
                                 .addComponent(lblAtendente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnVoltar)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnVoltar)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtSenhaProxima, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtSenhaProxima, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -265,7 +262,7 @@ public class AtendenteView extends javax.swing.JFrame {
     private javax.swing.JLabel lblSenhaAnterior;
     private javax.swing.JLabel lblSenhaAtual;
     private javax.swing.JLabel lblSenhaProxima;
-    private javax.swing.JToggleButton tbtnPausarContinuar;
+    public javax.swing.JToggleButton tbtnPausarContinuar;
     private javax.swing.JTextField txtSenhaAnterior;
     private javax.swing.JTextField txtSenhaAtual;
     private javax.swing.JTextField txtSenhaProxima;
@@ -305,21 +302,7 @@ public class AtendenteView extends javax.swing.JFrame {
         return true;
     }
 
-    private boolean pauseIcon() {
-        try {
-            //pacote onde estao as imagens no seu projeto
-            String diretorio = "/br/com/engsoft/img/pause.png";
-            URL resource = getClass().getResource(diretorio);
-            File file = new File(resource.toURI());
-            //setando o icone
-            ImageIcon logo = new ImageIcon(file.getPath());
-
-            tbtnPausarContinuar.setIcon(logo);
-
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(AtendenteView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+   
     }
 
 }
