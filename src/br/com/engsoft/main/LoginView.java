@@ -5,7 +5,8 @@
  */
 package br.com.engsoft.main;
 
-import br.com.engsoft.controll.guicheValidation;
+import br.com.engsoft.controll.validacaoLogin;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -46,7 +47,19 @@ public class LoginView extends javax.swing.JFrame {
 
         lblUsuario.setText("Login");
 
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
+
         lblSenha.setText("Senha");
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +69,11 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,33 +123,27 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String usuario = txtUsuario.getText();
-        String senha = txtSenha.getText();
-
-        if (usuario.equals(null)) {
-            JOptionPane.showMessageDialog(null, "Por favor, digite o usuário");
-
-        } else if (senha.equals(null)) {
-            JOptionPane.showMessageDialog(null, "Por favor, digite a senha");
-        } else {
-            boolean abrir = new guicheValidation().validarSenha(usuario, senha);
-
-            if (abrir == true) {
-                switch (usuario.substring(1, 2)) {
-                    case "a":
-                        abrirGuicheA();
-                        break;
-                    case "d":
-                        abrirGuicheD();
-                        break;
-                    default:
-                        abrirGuicheDefault();
-                }
-            }
-        }
-
-
+        pegaUsuarioSenha();
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            pegaUsuarioSenha();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            pegaUsuarioSenha();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtUsuario.setText("");
+        txtSenha.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,16 +159,24 @@ public class LoginView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -187,15 +207,67 @@ public class LoginView extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    private void abrirTelaPrincipal() {
+        try {
+            IndexView ci = new IndexView();
+            ci.setVisible(true);
+            this.setVisible(false);
+        } catch (Exception e) {
+            System.out.println("tela Login 216 \n" + e);
+        }
+    }
+
+    private void validarUsuarioSenha(String usuario, String senha) {
+
+        boolean abrir = new validacaoLogin().validarSenha(usuario, senha);
+
+        char guicheLogin;
+
+        guicheLogin = usuario.charAt(1);
+        if (abrir == true) {
+            switch (guicheLogin) {
+                case 'a':
+                    abrirGuicheA();
+                    break;
+                case 'b':
+                    abrirGuicheDefault();
+                    break;
+                case 'c':
+                    abrirGuicheDefault();
+                    break;
+                case 'd':
+                    abrirGuicheD();
+                    break;
+                default:
+                    abrirTelaPrincipal();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha Inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void pegaUsuarioSenha() {
+        String usuario = txtUsuario.getText();
+        String senha = txtSenha.getText();
+        validarUsuarioSenha(usuario, senha);
+    }
+
     private void abrirGuicheA() {
+        try {
+            GuicheA ga = new GuicheA();
+            ga.setVisible(true);
+            this.setVisible(false);
+        } catch (Exception e) {
+            System.out.println("tela Login 262 \n" + e);
+        }
+    }
+
+    private void abrirGuicheDefault() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void abrirGuicheD() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void abrirGuicheDefault() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
