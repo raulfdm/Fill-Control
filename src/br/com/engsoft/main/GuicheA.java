@@ -5,6 +5,9 @@
  */
 package br.com.engsoft.main;
 
+import br.com.engsoft.utils.AlteraImagens;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Raul
@@ -16,6 +19,7 @@ public class GuicheA extends javax.swing.JFrame {
      */
     public GuicheA() {
         initComponents();
+        configuracaoTela();
     }
 
     /**
@@ -27,56 +31,103 @@ public class GuicheA extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        gbtnGerar = new javax.swing.ButtonGroup();
+        btnGerarSenha = new javax.swing.JButton();
+        rbtnSenhaNormal = new javax.swing.JRadioButton();
+        rbtnSenhaPreferencial = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        tbtnPausarContinuar = new javax.swing.JToggleButton();
+        tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Gerar Senha");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGerarSenha.setText("Gerar Senha");
+        btnGerarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGerarSenhaActionPerformed(evt);
             }
         });
 
-        jRadioButton1.setText("Normal");
+        gbtnGerar.add(rbtnSenhaNormal);
+        rbtnSenhaNormal.setText("Normal");
 
-        jRadioButton2.setText("Preferencial");
+        gbtnGerar.add(rbtnSenhaPreferencial);
+        rbtnSenhaPreferencial.setText("Preferencial");
+        rbtnSenhaPreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSenhaPreferencialActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
+
+        tbtnPausarContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/pause.png"))); // NOI18N
+        tbtnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnPausarContinuarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(48, 48, 48))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGerarSenha)
+                                .addGap(18, 18, 18)
+                                .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtnSenhaPreferencial)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtnSenhaNormal))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1))
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbtnSenhaNormal)
+                    .addComponent(rbtnSenhaPreferencial))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGerarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGerarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGerarSenhaActionPerformed
+
+    private void rbtnSenhaPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSenhaPreferencialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnSenhaPreferencialActionPerformed
+
+    private void tbtnPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnPausarContinuarActionPerformed
+        
+        if (tbtnPausarContinuar.isSelected() == false) {
+             
+            tbtnPausarContinuar.setIcon(new AlteraImagens().pauseIcon());
+
+        } else if (tbtnPausarContinuar.isSelected() == true) {
+            tbtnPausarContinuar.setIcon(new AlteraImagens().continueIcon());
+
+        }
+    }//GEN-LAST:event_tbtnPausarContinuarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,8 +165,21 @@ public class GuicheA extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JButton btnGerarSenha;
+    private javax.swing.ButtonGroup gbtnGerar;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton rbtnSenhaNormal;
+    private javax.swing.JRadioButton rbtnSenhaPreferencial;
+    private javax.swing.JToggleButton tbtnPausarContinuar;
     // End of variables declaration//GEN-END:variables
+
+    private void configuracaoTela() {
+        //Bloqueia o redimensionamento
+        this.setResizable(false);
+        //Coloca o jframe no centro
+        this.setLocationRelativeTo(null);
+        //Fechar toda a Aplicação ao clicar no botão Fechar
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
 }
