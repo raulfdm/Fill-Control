@@ -5,14 +5,18 @@
  */
 package br.com.engsoft.main;
 
+import br.com.engsoft.controll.ControleDeFila;
 import br.com.engsoft.utils.AlteraImagens;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Raul
  */
 public class GuicheA extends javax.swing.JFrame {
+
+    ControleDeFila controleFila = new ControleDeFila();
 
     /**
      * Creates new form GuicheA
@@ -35,7 +39,7 @@ public class GuicheA extends javax.swing.JFrame {
         btnGerarSenha = new javax.swing.JButton();
         rbtnSenhaNormal = new javax.swing.JRadioButton();
         rbtnSenhaPreferencial = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblIcone = new javax.swing.JLabel();
         tbtnPausarContinuar = new javax.swing.JToggleButton();
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
 
@@ -59,7 +63,7 @@ public class GuicheA extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
+        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
 
         tbtnPausarContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/pause.png"))); // NOI18N
         tbtnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,14 +91,14 @@ public class GuicheA extends javax.swing.JFrame {
                                 .addComponent(rbtnSenhaNormal))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel2)))
+                        .addComponent(lblIcone)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jLabel2)
+                .addComponent(lblIcone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbtnSenhaNormal)
@@ -110,7 +114,22 @@ public class GuicheA extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarSenhaActionPerformed
-        // TODO add your handling code here:
+
+        if (tbtnPausarContinuar.isSelected() == false) {
+            if (rbtnSenhaNormal.isSelected()) {
+                String senha = controleFila.gerarSenhaNormal();
+                JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
+            } else if (rbtnSenhaPreferencial.isSelected()) {
+                String senha = controleFila.gerarSenhaPreferencial();
+                JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione o tipo de senha!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Você não pode gerar senhas, pois está em momento de pausa.");
+        }
+
+
     }//GEN-LAST:event_btnGerarSenhaActionPerformed
 
     private void rbtnSenhaPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSenhaPreferencialActionPerformed
@@ -118,9 +137,9 @@ public class GuicheA extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnSenhaPreferencialActionPerformed
 
     private void tbtnPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnPausarContinuarActionPerformed
-        
+
         if (tbtnPausarContinuar.isSelected() == false) {
-             
+
             tbtnPausarContinuar.setIcon(new AlteraImagens().pauseIcon());
 
         } else if (tbtnPausarContinuar.isSelected() == true) {
@@ -167,7 +186,7 @@ public class GuicheA extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerarSenha;
     private javax.swing.ButtonGroup gbtnGerar;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblIcone;
     private javax.swing.JRadioButton rbtnSenhaNormal;
     private javax.swing.JRadioButton rbtnSenhaPreferencial;
     private javax.swing.JToggleButton tbtnPausarContinuar;
