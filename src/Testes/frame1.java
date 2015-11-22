@@ -33,7 +33,7 @@ public class frame1 extends javax.swing.JFrame {
         lblEnviar = new javax.swing.JLabel();
         txtCampo1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnEnviar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnEnviar.setText("Enviar");
