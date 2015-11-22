@@ -5,7 +5,7 @@
  */
 package br.com.engsoft.utils;
 
-import br.com.engsoft.main.AtendenteView;
+import br.com.engsoft.main.GuicheDefault;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -31,7 +31,7 @@ public class AlteraImagens {
             return logo;
 
         } catch (URISyntaxException ex) {
-            Logger.getLogger(AtendenteView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GuicheDefault.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -48,7 +48,7 @@ public class AlteraImagens {
             return logo;
 
         } catch (URISyntaxException ex) {
-            Logger.getLogger(AtendenteView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GuicheDefault.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
