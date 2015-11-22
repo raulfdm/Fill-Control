@@ -14,12 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author Raul
  */
-public class LoginView extends javax.swing.JFrame {
+public class TelaLogin extends javax.swing.JFrame {
+
+    GuicheDefault gd = new GuicheDefault();
 
     /**
      * Creates new form LoginView
      */
-    public LoginView() {
+    public TelaLogin() {
         initComponents();
         configuracaoTela();
     }
@@ -163,27 +165,28 @@ public class LoginView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class
+            java.util.logging.Logger.getLogger(TelaLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class
+            java.util.logging.Logger.getLogger(TelaLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class
+            java.util.logging.Logger.getLogger(TelaLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginView.class
+            java.util.logging.Logger.getLogger(TelaLogin.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginView().setVisible(true);
+                new TelaLogin().setVisible(true);
             }
         });
     }
@@ -230,13 +233,14 @@ public class LoginView extends javax.swing.JFrame {
                     abrirGuicheA();
                     break;
                 case 'b':
-                    abrirGuicheDefault();
+                    abrirGuicheDefault("Atendimento B", usuario);
                     break;
                 case 'c':
-                    abrirGuicheDefault();
+                    abrirGuicheDefault("Atendimento C", usuario);
                     break;
                 case 'd':
-                    abrirGuicheD();
+                    abrirGuicheDefault("Atendimento D", usuario);
+                    gd.btnTransferir.setVisible(false);
                     break;
                 default:
                     abrirTelaPrincipal();
@@ -258,16 +262,21 @@ public class LoginView extends javax.swing.JFrame {
             GuicheA ga = new GuicheA();
             ga.setVisible(true);
             this.setVisible(false);
+
         } catch (Exception e) {
             System.out.println("tela Login 262 \n" + e);
         }
     }
 
-    private void abrirGuicheDefault() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void abrirGuicheDefault(String titulo, String atendente) {
+        try {
+            gd.setVisible(true);
+            this.setVisible(false);
+            gd.lblTitulo.setText(titulo);
+            gd.lblNomeAtendente.setText(atendente);
+        } catch (Exception e) {
+            System.out.println("tela Login 262 \n" + e);
+        }
     }
 
-    private void abrirGuicheD() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
