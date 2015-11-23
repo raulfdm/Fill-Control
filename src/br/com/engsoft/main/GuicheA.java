@@ -117,11 +117,10 @@ public class GuicheA extends javax.swing.JFrame {
 
         if (tbtnPausarContinuar.isSelected() == false) {
             if (rbtnSenhaNormal.isSelected()) {
-                String senha = controleFila.gerarSenhaNormal();
-                JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
+                controleFila.gerarSenhaNormal();
+                
             } else if (rbtnSenhaPreferencial.isSelected()) {
-                String senha = controleFila.gerarSenhaPreferencial();
-                JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
+                controleFila.gerarSenhaPreferencial();                
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione o tipo de senha!");
             }
