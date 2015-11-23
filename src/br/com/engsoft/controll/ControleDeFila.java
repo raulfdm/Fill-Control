@@ -1,6 +1,16 @@
 package br.com.engsoft.controll;
 
+import br.com.engsoft.jdbc.DataBase;
+import br.com.engsoft.utils.utilitarios;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -81,29 +91,27 @@ public class ControleDeFila {
     public int getTamanhoFilaC() {
         return tamanhoFilaGuicheC;
     }
-    
+
     public int getTamanhoFilaD() {
         return tamanhoFilaGuicheD;
     }
 
-    
     //FIM GETTERS AND SETTERS
-
     //MÉTODOS
     public String gerarSenhaPreferencial() {
         senhaP++;
         String senhaGerada;
         if (String.valueOf(senhaP).length() == 1) {
             senhaGerada = "P000" + senhaP;
-            filaPreferencial.add(senhaGerada);            
+            filaPreferencial.add(senhaGerada);
             return senhaGerada;
         } else if (String.valueOf(senhaP).length() == 2) {
             senhaGerada = "P00" + senhaP;
-            filaPreferencial.add(senhaGerada);            
+            filaPreferencial.add(senhaGerada);
             return senhaGerada;
         } else if (String.valueOf(senhaP).length() == 3) {
             senhaGerada = "P0" + senhaP;
-            filaPreferencial.add(senhaGerada);            
+            filaPreferencial.add(senhaGerada);
             return senhaGerada;
         } else if (String.valueOf(senhaP).length() == 4) {
             senhaGerada = "P" + senhaP;
@@ -120,21 +128,22 @@ public class ControleDeFila {
         senhaN++;
         tamanhoFilaNormal++;
         String senhaGerada;
+
         if (String.valueOf(senhaN).length() == 1) {
             senhaGerada = "N000" + senhaN;
-            filaNormal.add(senhaGerada);
+            gravarSenha(senhaGerada, "B");
             return senhaGerada;
         } else if (String.valueOf(senhaN).length() == 2) {
             senhaGerada = "N00" + senhaN;
-            filaNormal.add(senhaGerada);
+            gravarSenha(senhaGerada, "B");
             return senhaGerada;
         } else if (String.valueOf(senhaN).length() == 3) {
             senhaGerada = "N0" + senhaN;
-            filaNormal.add(senhaGerada);
+            gravarSenha(senhaGerada, "B");
             return senhaGerada;
         } else if (String.valueOf(senhaN).length() == 4) {
             senhaGerada = "N" + senhaN;
-            filaNormal.add(senhaGerada);
+            gravarSenha(senhaGerada, "B");
             return senhaGerada;
         } else {
             System.out.println("Senhas ultrapassaram 4 digitos");
@@ -199,5 +208,35 @@ public class ControleDeFila {
             }
         }
 
+    }
+
+    public void gravarSenha(String senha, String guiche) {
+        String sql = "insert into senha (senha,datageracao,guicheatendimento,status) values "
+                + "(?,?,?,?)";
+
+        Connection con;
+        PreparedStatement st;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, senha);
+            st.setString(2, new utilitarios().dataAtual());
+            st.setString(3, guiche);
+            st.setString(4, "ATENDIMENTO");
+
+            boolean resultado = st.execute();
+            ResultSet rt = st.getGeneratedKeys();
+
+            while (rt.next()) {
+                long id = rt.getLong("ID");
+                System.out.println(resultado + " ID: " + id);
+            }
+            JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
+            rt.close();
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
