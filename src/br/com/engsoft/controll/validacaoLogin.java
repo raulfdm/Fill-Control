@@ -5,7 +5,17 @@
  */
 package br.com.engsoft.controll;
 
+import br.com.engsoft.jdbc.DataBase;
+import br.com.engsoft.utils.utilitarios;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,74 +23,62 @@ import java.util.ArrayList;
  */
 public class validacaoLogin {
 
-    ArrayList<login> usuariosCadastrados = new ArrayList<login>();
-
-    //usuariosCadastrados A
-    login usu01 = new login("admin", "admin");
-
-    //usuariosCadastrados A
-    login ga01 = new login("ga01", "ga01");
-    login ga02 = new login("ga02", "ga02");
-
-    //usuariosCadastrados B
-    login gb01 = new login("gb01", "gb01");
-    login gb02 = new login("gb02", "gb02");
-    login gb03 = new login("gb03", "gb03");
-    login gb04 = new login("gb04", "gb04");
-    login gb05 = new login("gb05", "gb05");
-    login gb06 = new login("gb06", "gb06");
-    login gb07 = new login("gb07", "gb07");
-    login gb08 = new login("gb08", "gb08");
-    login gb09 = new login("gb09", "gb09");
-    login gb10 = new login("gb10", "gb10");
-
-    //usuariosCadastrados C
-    login gc01 = new login("gc01", "gc01");
-    login gc02 = new login("gc02", "gc02");
-    login gc03 = new login("gc03", "gc03");
-    login gc04 = new login("gc04", "gc04");
-
-    //usuariosCadastrados D
-    login gd01 = new login("gd01", "gd01");
-    login gd02 = new login("gd02", "gd02");
-    login gd03 = new login("gd03", "gd03");
+    String usuario;
+    String senha;
+    UsuarioModelo m = new UsuarioModelo();
 
     public void cadastroGuiche() {
-        usuariosCadastrados.add(usu01);
-        usuariosCadastrados.add(ga01);
-        usuariosCadastrados.add(ga02);
-        usuariosCadastrados.add(gb01);
-        usuariosCadastrados.add(gb02);
-        usuariosCadastrados.add(gb03);
-        usuariosCadastrados.add(gb04);
-        usuariosCadastrados.add(gb05);
-        usuariosCadastrados.add(gb06);
-        usuariosCadastrados.add(gb07);
-        usuariosCadastrados.add(gb08);
-        usuariosCadastrados.add(gb09);
-        usuariosCadastrados.add(gb10);
-        usuariosCadastrados.add(gc01);
-        usuariosCadastrados.add(gc02);
-        usuariosCadastrados.add(gc03);
-        usuariosCadastrados.add(gc04);
-        usuariosCadastrados.add(gd01);
-        usuariosCadastrados.add(gd02);
-        usuariosCadastrados.add(gd03);
 
     }
 
-    public boolean validarSenha(String usuario, String senha) {
-        cadastroGuiche();
+    public UsuarioModelo validarSenha(String usuario, String senha) {
+        String sql = "select * from usuario where usuario = '" + usuario
+                + "' and senha = '" + senha + "'";
+       
+        Connection con;
+        Statement st;
 
-        for (login g : usuariosCadastrados) {
-            if (g.getUsuario().toLowerCase().equals(usuario.toLowerCase())
-                    && g.getSenha().toLowerCase().equals(senha.toLowerCase())) {
-                return true;
+        try {
+            con = DataBase.getConnection();
+            st = con.createStatement();
+            st.execute(sql);
+            ResultSet rt = st.getResultSet();
+
+            while (rt.next()) {
+                long idusuario = rt.getLong("idusuario");
+                String usuarioBanco = rt.getString("usuario");
+                String senhaBanco = rt.getString("senha");
+                String admin = rt.getString("adm");
+                String guicheA = rt.getString("guichea");
+                String guicheB = rt.getString("guicheb");
+                String guicheC = rt.getString("guichec");
+                String guicheD = rt.getString("guiched");
+
+                if (usuarioBanco.equals(usuario) && senhaBanco.equals(senha)) {
+                    m.setIdusuario(idusuario);
+                    m.setUsuario(usuario);
+                    m.setSenha(senha);
+                    m.setAdmin(admin.charAt(0));
+                    m.setGuicheA(guicheA.charAt(0));
+                    m.setGuicheB(guicheB.charAt(0));
+                    m.setGuicheC(guicheC.charAt(0));
+                    m.setGuicheD(guicheD.charAt(0));
+                    m.setValidado(true);
+                    return m;
+                } else {                    
+                    JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorretos");
+                }
 
             }
 
+            rt.close();
+            st.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return m;
     }
-    
+
 }

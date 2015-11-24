@@ -5,6 +5,7 @@
  */
 package br.com.engsoft.main;
 
+import br.com.engsoft.controll.UsuarioModelo;
 import br.com.engsoft.controll.validacaoLogin;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -15,9 +16,7 @@ import javax.swing.JOptionPane;
  * @author Raul
  */
 public class TelaLogin extends javax.swing.JFrame {
-
-    GuicheDefault gd = new GuicheDefault();
-
+   static String atendente;
     /**
      * Creates new form LoginView
      */
@@ -210,73 +209,53 @@ public class TelaLogin extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void abrirTelaPrincipal() {
-        try {
-            IndexView ci = new IndexView();
-            ci.setVisible(true);
-            this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("tela Login 216 \n" + e);
-        }
-    }
 
     private void validarUsuarioSenha(String usuario, String senha) {
 
-        boolean abrir = new validacaoLogin().validarSenha(usuario, senha);
+        UsuarioModelo usuarioM = new UsuarioModelo();
+        usuarioM = new validacaoLogin().validarSenha(usuario.toUpperCase(), senha.toUpperCase());
 
-        char guicheLogin;
-
-        guicheLogin = usuario.charAt(1);
-        if (abrir == true) {
-            switch (guicheLogin) {
-                case 'a':
-                    abrirGuicheA();
-                    break;
-                case 'b':
-                    abrirGuicheDefault("Atendimento B", usuario);
-                    break;
-                case 'c':
-                    abrirGuicheDefault("Atendimento C", usuario);
-                    break;
-                case 'd':
-                    abrirGuicheDefault("Atendimento D", usuario);
-                    gd.btnTransferir.setVisible(false);
-                    break;
-                default:
-                    abrirTelaPrincipal();
+        if (usuarioM.isValidado() == true) {
+            SelecionaOperacao at = new SelecionaOperacao();
+            atendente = usuarioM.getUsuario();
+            if (usuarioM.getAdmin() == 'S') {
+                at.rbtnAdministrador.setEnabled(true);
+            }
+            if (usuarioM.getGuicheA() == 'S') {
+                at.rbtnGuicheA.setEnabled(true);
+            }
+            if (usuarioM.getGuicheB() == 'S') {
+                at.rbtnGuicheB.setEnabled(true);
+            }
+            if (usuarioM.getGuicheC() == 'S') {
+                at.rbtnGuicheC.setEnabled(true);
+            }
+            if (usuarioM.getGuicheD() == 'S') {
+                at.rbtnGuicheD.setEnabled(true);
             }
 
+            at.setVisible(true);
+            this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Usuário ou senha Inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto!");
         }
     }
 
     private void pegaUsuarioSenha() {
-        String usuario = txtUsuario.getText();
-        String senha = txtSenha.getText();
-        validarUsuarioSenha(usuario, senha);
-    }
 
-    private void abrirGuicheA() {
-        try {
-            GuicheA ga = new GuicheA();
-            ga.setVisible(true);
-            this.setVisible(false);
-
-        } catch (Exception e) {
-            System.out.println("tela Login 262 \n" + e);
+        String usuario = txtUsuario.getText().toUpperCase();
+        String senha = txtSenha.getText().toUpperCase();
+        if (usuario == null || usuario.equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, digite o usuário");
+        } else if (senha == null || senha.equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, digite a senha");
+        } else {
+            validarUsuarioSenha(usuario, senha);
         }
+
     }
 
-    private void abrirGuicheDefault(String titulo, String atendente) {
-        try {
-            gd.setVisible(true);
-            this.setVisible(false);
-            gd.lblTitulo.setText(titulo);
-            gd.lblNomeAtendente.setText(atendente);
-        } catch (Exception e) {
-            System.out.println("tela Login 262 \n" + e);
-        }
-    }
+
+   
 
 }
