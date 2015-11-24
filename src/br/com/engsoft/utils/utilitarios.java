@@ -17,8 +17,8 @@ import java.util.Date;
 public class utilitarios {
     
     
-    public String dataAtual() {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public String dataAtual(String mascara) {
+        DateFormat df = new SimpleDateFormat(mascara);
         Date today = Calendar.getInstance().getTime();
         String reportDate = df.format(today);
 
