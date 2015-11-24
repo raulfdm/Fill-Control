@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -99,56 +98,34 @@ public class ControleDeFila {
     //FIM GETTERS AND SETTERS
     //MÉTODOS
     public String gerarSenhaPreferencial() {
-        senhaP++;
-        String senhaGerada;
-        if (String.valueOf(senhaP).length() == 1) {
-            senhaGerada = "P000" + senhaP;
-            filaPreferencial.add(senhaGerada);
-            return senhaGerada;
-        } else if (String.valueOf(senhaP).length() == 2) {
-            senhaGerada = "P00" + senhaP;
-            filaPreferencial.add(senhaGerada);
-            return senhaGerada;
-        } else if (String.valueOf(senhaP).length() == 3) {
-            senhaGerada = "P0" + senhaP;
-            filaPreferencial.add(senhaGerada);
-            return senhaGerada;
-        } else if (String.valueOf(senhaP).length() == 4) {
-            senhaGerada = "P" + senhaP;
-            filaPreferencial.add(senhaGerada);
-            return senhaGerada;
+        String senhaExistente = buscarSenhaExistente('P', new utilitarios().dataAtual("dd/MM/yyyy"));
+
+        if (senhaExistente == null || senhaExistente.equals("")) {
+            senhaP++;            
+            return gerarSenhaP();
         } else {
-            System.out.println("Senhas ultrapassaram 4 digitos");
-            return null;
+            int valor = Integer.parseInt(senhaExistente.substring(1, senhaExistente.length()));
+            senhaP = valor;
+            senhaP++;
+            return gerarSenhaP();
         }
 
     }
 
     public String gerarSenhaNormal() {
-        senhaN++;
-        tamanhoFilaNormal++;
-        String senhaGerada;
+        String senhaExistente = buscarSenhaExistente('N', new utilitarios().dataAtual("dd/MM/yyyy"));
 
-        if (String.valueOf(senhaN).length() == 1) {
-            senhaGerada = "N000" + senhaN;
-            gravarSenha(senhaGerada, "B");
-            return senhaGerada;
-        } else if (String.valueOf(senhaN).length() == 2) {
-            senhaGerada = "N00" + senhaN;
-            gravarSenha(senhaGerada, "B");
-            return senhaGerada;
-        } else if (String.valueOf(senhaN).length() == 3) {
-            senhaGerada = "N0" + senhaN;
-            gravarSenha(senhaGerada, "B");
-            return senhaGerada;
-        } else if (String.valueOf(senhaN).length() == 4) {
-            senhaGerada = "N" + senhaN;
-            gravarSenha(senhaGerada, "B");
-            return senhaGerada;
+        if (senhaExistente == null || senhaExistente.equals("")) {
+            senhaN++;
+            tamanhoFilaNormal++;
+            return gerarSenhaN();
         } else {
-            System.out.println("Senhas ultrapassaram 4 digitos");
-            return null;
+            int valor = Integer.parseInt(senhaExistente.substring(1, senhaExistente.length()));
+            senhaN = valor;
+            senhaN++;
+            return gerarSenhaN();
         }
+
     }
 
     public void tranfereGuicheB() {
@@ -211,32 +188,103 @@ public class ControleDeFila {
     }
 
     public void gravarSenha(String senha, String guiche) {
-        String sql = "insert into senha (senha,datageracao,guicheatendimento,status) values "
-                + "(?,?,?,?)";
+        String sql = "insert into senha (senha,datageracao,horageracao,guicheatendimento,status) values "
+                + "(?,?,?,?,?)";
 
         Connection con;
         PreparedStatement st;
         try {
             con = DataBase.getConnection();
-            st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st = con.prepareStatement(sql);
             st.setString(1, senha);
-            st.setString(2, new utilitarios().dataAtual());
-            st.setString(3, guiche);
-            st.setString(4, "ATENDIMENTO");
+            st.setString(2, new utilitarios().dataAtual("dd/MM/yyyy"));
+            st.setString(3, new utilitarios().dataAtual("HH:mm:ss"));
+            st.setString(4, guiche);
+            st.setString(5, "ATENDIMENTO");
 
-            boolean resultado = st.execute();
-            ResultSet rt = st.getGeneratedKeys();
+            st.execute();
 
-            while (rt.next()) {
-                long id = rt.getLong("ID");
-                System.out.println(resultado + " ID: " + id);
-            }
-            JOptionPane.showMessageDialog(null, "Senha gerada: \n" + senha);
-            rt.close();
             st.close();
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String buscarSenhaExistente(char tipoSenha, String data) {
+        String senhaMax = null;
+        String sql = "select max(senha) from senha where senha like '" + tipoSenha
+                + "%' and datageracao = '" + data + "'";
+
+        Connection con;
+        Statement st;
+
+        try {
+            con = DataBase.getConnection();
+            st = con.createStatement();
+            st.execute(sql);
+            ResultSet rt = st.getResultSet();
+
+            while (rt.next()) {
+                senhaMax = rt.getString(1);
+            }
+
+            rt.close();
+            st.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return senhaMax;
+    }
+
+    public String gerarSenhaN() {
+        String senhaGerada;
+        if (String.valueOf(senhaN).length() == 1) {
+            senhaGerada = "N000" + senhaN;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaN).length() == 2) {
+            senhaGerada = "N00" + senhaN;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaN).length() == 3) {
+            senhaGerada = "N0" + senhaN;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaN).length() == 4) {
+            senhaGerada = "N" + senhaN;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else {
+            System.out.println("Senhas ultrapassaram 4 digitos");
+            return null;
+        }
+    }
+    
+    public String gerarSenhaP() {
+        String senhaGerada;
+        if (String.valueOf(senhaP).length() == 1) {
+            senhaGerada = "P000" + senhaP;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaP).length() == 2) {
+            senhaGerada = "P00" + senhaP;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaP).length() == 3) {
+            senhaGerada = "P0" + senhaP;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else if (String.valueOf(senhaP).length() == 4) {
+            senhaGerada = "P" + senhaP;
+            gravarSenha(senhaGerada, "B");
+            return senhaGerada;
+        } else {
+            System.out.println("Senhas ultrapassaram 4 digitos");
+            return null;
         }
     }
 }

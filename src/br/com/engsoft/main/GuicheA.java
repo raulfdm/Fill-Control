@@ -6,6 +6,7 @@
 package br.com.engsoft.main;
 
 import br.com.engsoft.controll.ControleDeFila;
+import br.com.engsoft.controll.ControleDeTelas;
 import br.com.engsoft.utils.AlteraImagens;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 public class GuicheA extends javax.swing.JFrame {
 
     ControleDeFila controleFila = new ControleDeFila();
+    ControleDeTelas controleTela = new ControleDeTelas();
 
     /**
      * Creates new form GuicheA
@@ -42,6 +44,9 @@ public class GuicheA extends javax.swing.JFrame {
         lblIcone = new javax.swing.JLabel();
         tbtnPausarContinuar = new javax.swing.JToggleButton();
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
+        lblAtendente = new javax.swing.JLabel();
+        lblNomeAtendente = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,27 +77,45 @@ public class GuicheA extends javax.swing.JFrame {
             }
         });
 
+        lblAtendente.setText("Atendente:");
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(btnGerarSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGerarSenha)
-                                .addGap(18, 18, 18)
-                                .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rbtnSenhaPreferencial)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbtnSenhaNormal))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(lblIcone)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(rbtnSenhaNormal))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblAtendente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblIcone)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,13 +123,19 @@ public class GuicheA extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addComponent(lblIcone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtnSenhaNormal)
-                    .addComponent(rbtnSenhaPreferencial))
-                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnSenhaPreferencial)
+                    .addComponent(rbtnSenhaNormal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGerarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(btnVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAtendente)
+                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,10 +146,10 @@ public class GuicheA extends javax.swing.JFrame {
 
         if (tbtnPausarContinuar.isSelected() == false) {
             if (rbtnSenhaNormal.isSelected()) {
-                controleFila.gerarSenhaNormal();
-                
+                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaNormal());
+
             } else if (rbtnSenhaPreferencial.isSelected()) {
-                controleFila.gerarSenhaPreferencial();                
+                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaPreferencial());
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione o tipo de senha!");
             }
@@ -146,6 +175,10 @@ public class GuicheA extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_tbtnPausarContinuarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        controleTela.abrirSelecionaOperacao(this);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,8 +217,11 @@ public class GuicheA extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerarSenha;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup gbtnGerar;
+    private javax.swing.JLabel lblAtendente;
     private javax.swing.JLabel lblIcone;
+    public javax.swing.JLabel lblNomeAtendente;
     private javax.swing.JRadioButton rbtnSenhaNormal;
     private javax.swing.JRadioButton rbtnSenhaPreferencial;
     private javax.swing.JToggleButton tbtnPausarContinuar;
