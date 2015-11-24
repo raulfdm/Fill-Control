@@ -5,12 +5,20 @@
  */
 package br.com.engsoft.main;
 
+import br.com.engsoft.controll.ControleDeFila;
+import br.com.engsoft.jdbc.DataBase;
 import br.com.engsoft.utils.AlteraImagens;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -101,6 +109,11 @@ public class GuicheDefault extends javax.swing.JFrame {
         btnAnterior.setText("Chamar Anterior");
 
         btnProximo.setText("Chamar Próximo");
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
 
         lblAtendente.setText("Atendente:");
 
@@ -255,6 +268,10 @@ public class GuicheDefault extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnTransferirActionPerformed
 
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+       chamarProximoCliente();
+    }//GEN-LAST:event_btnProximoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,7 +316,7 @@ public class GuicheDefault extends javax.swing.JFrame {
     private javax.swing.JLabel lblAtendente;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblHora;
-    protected javax.swing.JLabel lblNomeAtendente;
+    public javax.swing.JLabel lblNomeAtendente;
     private javax.swing.JLabel lblSenhaAnterior;
     private javax.swing.JLabel lblSenhaAtual;
     private javax.swing.JLabel lblSenhaProxima;
@@ -332,6 +349,59 @@ public class GuicheDefault extends javax.swing.JFrame {
     public String horaAtual() {
         Date date = new Date();
         return new SimpleDateFormat("HH:mm").format(date);
+    }
+
+    private void chamarProximoCliente() {
+        String sql = "select * from usuario where usuario = '" + usuario
+                + "' and senha = '" + senha + "'";
+       
+        Connection con;
+        Statement st;
+
+        try {
+            con = DataBase.getConnection();
+            st = con.createStatement();
+            st.execute(sql);
+            ResultSet rt = st.getResultSet();
+
+            while (rt.next()) {
+                long idusuario = rt.getLong("idusuario");
+                String usuarioBanco = rt.getString("usuario");
+                String senhaBanco = rt.getString("senha");
+                String admin = rt.getString("adm");
+                String guicheA = rt.getString("guichea");
+                String guicheB = rt.getString("guicheb");
+                String guicheC = rt.getString("guichec");
+                String guicheD = rt.getString("guiched");
+
+                if (usuarioBanco.equals(usuario) && senhaBanco.equals(senha)) {
+                    m.setIdusuario(idusuario);
+                    m.setUsuario(usuario);
+                    m.setSenha(senha);
+                    m.setAdmin(admin.charAt(0));
+                    m.setGuicheA(guicheA.charAt(0));
+                    m.setGuicheB(guicheB.charAt(0));
+                    m.setGuicheC(guicheC.charAt(0));
+                    m.setGuicheD(guicheD.charAt(0));
+                    m.setValidado(true);
+                    return m;
+                    
+                    
+                } else {                    
+                    JOptionPane.showMessageDialog(null, "Usuario ou Senha Incorretos");
+                }
+
+            }
+
+            rt.close();
+            st.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return m;
+    }
     }
 
 }
