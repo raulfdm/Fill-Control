@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import br.com.engsoft.controll.SenhasControl;
 import br.com.engsoft.controll.ControleDeTelas;
+import javax.swing.UIManager;
 
 /**
  *
@@ -322,10 +323,10 @@ public class GuicheDefault extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+
+                javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                break;
+
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GuicheDefault.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

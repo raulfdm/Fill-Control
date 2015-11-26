@@ -7,6 +7,7 @@ package br.com.engsoft.main;
 
 import javax.swing.JFrame;
 import br.com.engsoft.controll.ControleDeTelas;
+import javax.swing.UIManager;
 
 /**
  *
@@ -228,10 +229,10 @@ public class SelecionaOperacao extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+
+                javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                break;
+
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(SelecionaOperacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

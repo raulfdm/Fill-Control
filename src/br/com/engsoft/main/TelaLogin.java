@@ -10,8 +10,12 @@ import br.com.engsoft.controll.ControleDeTelas;
 import br.com.engsoft.controll.UsuarioModelo;
 import br.com.engsoft.controll.ValidacaoLogin;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -26,6 +30,7 @@ public class TelaLogin extends javax.swing.JFrame {
      * Creates new form LoginView
      */
     public TelaLogin() {
+
         initComponents();
         configuracaoTela();
     }
@@ -61,6 +66,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jFrame1.getContentPane().add(lblSenha1, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(java.awt.Color.white);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
@@ -195,11 +202,10 @@ public class TelaLogin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
 
-                }
+                javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                break;
+
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaLogin.class
