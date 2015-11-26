@@ -6,6 +6,7 @@
 package diversos;
 
 import br.com.engsoft.controll.ControleDeFila;
+import br.com.engsoft.controll.SenhasControl;
 import br.com.engsoft.jdbc.DataBase;
 import br.com.engsoft.utils.utilitarios;
 import java.sql.Connection;
@@ -60,19 +61,21 @@ public class TesteConsulta {
         try {
             con = DataBase.getConnection();
             st = con.createStatement();
-            st.execute(sql);
+            boolean trouxe = st.execute(sql);
             ResultSet rt = st.getResultSet();
-
+            int row = 0;
             while (rt.next()) {
-                senhaMax = rt.getString(1);
+                row += rt.getRow();
 
 //                RowId coluna2 = rt.getRowId(0);
 //                RowId coluna3 = rt.getRowId(0);
 //                RowId coluna4 = rt.getRowId(0);
 //                RowId coluna5 = rt.getRowId(0);
 //                RowId coluna6 = rt.getRowId(0);
-                System.out.println(senhaMax);
             }
+            System.out.println(trouxe);
+            System.out.println(row);
+            System.out.println(sql);
 
             rt.close();
             st.close();
@@ -85,16 +88,122 @@ public class TesteConsulta {
         return senhaMax;
     }
 
+    private SenhasControl chamarProximoCliente(char guiche, String data) throws SQLException {
+
+        String sqlN = "select * from senha where guicheatendimento = '" + guiche + "' "
+                + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
+                + "senha like '%N%' and rownum = 1 group by idsenha, senha";
+
+        String sqlP = "select * from senha where guicheatendimento = '" + guiche + "' "
+                + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
+                + "senha like '%P%' and rownum = 1 group by idsenha, senha";
+
+        SenhasControl senhaC = new SenhasControl();
+        Connection con;
+        Statement st;
+
+        try {
+            con = DataBase.getConnection();
+            st = con.createStatement();
+
+            st.execute(sqlP);
+            ResultSet rt = st.getResultSet();
+           
+            while (rt.next()) {                
+                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setSenha(rt.getString("senha"));
+                senhaC.setGuiche(rt.getString("guicheatendimento"));
+                senhaC.setStatus(rt.getString("status"));
+                System.out.println(senhaC.toString());
+                return senhaC;
+            }
+
+            st.execute(sqlN);
+            rt = st.getResultSet();
+            while (rt.next()) {
+                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setSenha(rt.getString("senha"));
+                senhaC.setGuiche(rt.getString("guicheatendimento"));
+                senhaC.setStatus(rt.getString("status"));
+                System.out.println(senhaC.toString());
+                return senhaC;
+            }
+
+            rt.close();
+            st.close();
+            con.close();
+
+            return senhaC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public void tranfereGuicheC(String senha, String data) {
+        String sql = "update senha set guicheatendimento = 'C' where senha = ? "
+                + "and datageracao = ?";
+
+        Connection con = null;
+        PreparedStatement st = null;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql);
+
+            st.setString(1, senha);
+            st.setString(2, data);
+            st.executeUpdate();
+
+            //System.out.println(resultado);
+            st.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void finaliza(String senha, String data) {
+        String sql = "update senha set status = 'FINALIZADO' where senha = ? "
+                + "and datageracao = ?";
+
+        Connection con = null;
+        PreparedStatement st = null;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql);
+
+            st.setString(1, senha);
+            st.setString(2, data);
+            st.executeUpdate();
+
+            //System.out.println(resultado);
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public TesteConsulta() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         // new TesteConsulta().gravarSenha("N0002", "B");
-        //new TesteConsulta().buscarSenhaExistente('N', new utilitarios().dataAtual("24/11/2015"));
-        String senha = "N0002";
-        int valor = Integer.parseInt(senha.substring(1, senha.length()));
-        System.out.println(valor);
+        //new TesteConsulta().buscarSenhaExistente('N', new utilitarios().dataAtual("dd/MM/yyyy"));
+        //String senha = "N0002";
+        //int valor = Integer.parseInt(senha.substring(1, senha.length()));
+        //System.out.println(valor);
+      // senhasControl senhaC = new senhasControl();
+        //senhaC = new TesteConsulta().chamarProximoCliente('B', new utilitarios().dataAtual("dd/MM/yyyy"));
+        
+        // String n = "atendente B";
+        //System.out.println(n.charAt(10));
+
+         new TesteConsulta().finaliza("N0003", "25/11/2015");
     }
 
 }

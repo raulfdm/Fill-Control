@@ -101,7 +101,7 @@ public class ControleDeFila {
         String senhaExistente = buscarSenhaExistente('P', new utilitarios().dataAtual("dd/MM/yyyy"));
 
         if (senhaExistente == null || senhaExistente.equals("")) {
-            senhaP++;            
+            senhaP++;
             return gerarSenhaP();
         } else {
             int valor = Integer.parseInt(senhaExistente.substring(1, senhaExistente.length()));
@@ -151,15 +151,25 @@ public class ControleDeFila {
 
     }
 
-    public void tranfereGuicheC(String senha) {
-        for (int i = 0; i < filaGuicheB.size(); i++) {
+    public void tranfereGuicheC(String senha, String data) {
+        String sql = "update senha set guicheatendimento = 'C' where senha = ? "
+                + "and datageracao = ?";
 
-            if (filaGuicheB.get(i).equals(senha)) {
-                filaGuicheB.remove(i);
-                filaGuicheC.add(senha);
-                tamanhoFilaGuicheB--;
-                tamanhoFilaGuicheC++;
-            }
+        Connection con = null;
+        PreparedStatement st = null;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql);
+
+            st.setString(1, senha);
+            st.setString(2, data);
+            st.executeUpdate();
+
+            //System.out.println(resultado);
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -174,17 +184,6 @@ public class ControleDeFila {
                 tamanhoFilaGuicheD++;
             }
         }
-    }
-
-    public void fimDoAtendimento(String senha) {
-        for (int posicao = 0; posicao < tamanhoFilaNormal; posicao++) {
-            if (filaNormal.get(posicao).equals(senha)) {
-                filaNormal.remove(posicao);
-                tamanhoFilaNormal--;
-                filaAtendida.add(senha);
-            }
-        }
-
     }
 
     public void gravarSenha(String senha, String guiche) {
@@ -263,7 +262,7 @@ public class ControleDeFila {
             return null;
         }
     }
-    
+
     public String gerarSenhaP() {
         String senhaGerada;
         if (String.valueOf(senhaP).length() == 1) {
@@ -287,4 +286,80 @@ public class ControleDeFila {
             return null;
         }
     }
+
+    public SenhasControl chamarProximoCliente(char guiche, String data) throws SQLException {
+
+        String sqlN = "select * from senha where guicheatendimento = '" + guiche + "' "
+                + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
+                + "senha like '%N%' and rownum = 1 group by idsenha, senha";
+
+        String sqlP = "select * from senha where guicheatendimento = '" + guiche + "' "
+                + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
+                + "senha like '%P%' and rownum = 1 group by idsenha, senha";
+
+        SenhasControl senhaC = new SenhasControl();
+        Connection con;
+        Statement st;
+
+        try {
+            con = DataBase.getConnection();
+            st = con.createStatement();
+
+            st.execute(sqlP);
+            ResultSet rt = st.getResultSet();
+           
+            while (rt.next()) {                
+                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setSenha(rt.getString("senha"));
+                senhaC.setGuiche(rt.getString("guicheatendimento"));
+                senhaC.setStatus(rt.getString("status"));
+                System.out.println(senhaC.toString());
+                return senhaC;
+            }
+
+            st.execute(sqlN);
+            rt = st.getResultSet();
+            while (rt.next()) {
+                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setSenha(rt.getString("senha"));
+                senhaC.setGuiche(rt.getString("guicheatendimento"));
+                senhaC.setStatus(rt.getString("status"));
+                System.out.println(senhaC.toString());
+                return senhaC;
+            }
+
+            rt.close();
+            st.close();
+            con.close();
+
+            return senhaC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    public void finalizaAtendimento(String senha, String data) {
+        String sql = "update senha set status = 'FINALIZADO' where senha = ? "
+                + "and datageracao = ?";
+
+        Connection con = null;
+        PreparedStatement st = null;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql);
+
+            st.setString(1, senha);
+            st.setString(2, data);
+            st.executeUpdate();
+
+            //System.out.println(resultado);
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

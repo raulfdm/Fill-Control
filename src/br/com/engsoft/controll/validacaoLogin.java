@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Raul
  */
-public class validacaoLogin {
+public class ValidacaoLogin {
 
     String usuario;
     String senha;
@@ -76,7 +76,8 @@ public class validacaoLogin {
             con.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Banco de dados indisponível");
+            System.out.println(ex);
         }
         return m;
     }

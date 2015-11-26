@@ -5,39 +5,58 @@
  */
 package br.com.engsoft.controll;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Raul
  */
-public class senhasControl {
-    String senhaNormal;
-    String senhaPreferencial;
+public class SenhasControl {
+    
+    long idsenha;
+    String senha;    
+    String guiche;
+    String status;
     
 
-    public senhasControl() {
+    public SenhasControl() {
     }
 
-
-    public void setSenhaNormal(String senhaNormal) {
-        this.senhaNormal = senhaNormal;
+    public long getIdsenha() {
+        return idsenha;
     }
-  
 
-    public void setSenhaPreferencial(String senhaPreferencial) {
-        this.senhaPreferencial = senhaPreferencial;
+    public void setIdsenha(long idsenha) {
+        this.idsenha = idsenha;
+    }
+    public String getGuiche() {
+        return guiche;
+    }
+
+    public void setGuiche(String guiche) {
+        this.guiche = guiche;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    @Override
+    public String toString() {
+        return "senhasControl{" + "idsenha=" + idsenha + ", senha=" + senha + ", guiche=" + guiche + ", status=" + status + '}';
     }
     
-    public String gerarSenhaNormal(){
-        String senhaGerada = "2015N0001";
-               
-        return senhaGerada;
-    }
-    
-    public String gerarSenhaPreferencial(){
-        String senhaGerada = "2015P0001";
-               
-        return senhaGerada;
-    }
+
+
+   
 }

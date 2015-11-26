@@ -61,13 +61,32 @@ public class ControleDeTelas {
         }
     }
 
-    public void abrirSelecionaOperacao(javax.swing.JFrame f) {
-        try {
+    public void abrirSelecionaOperacao(javax.swing.JFrame f, UsuarioModelo m) {
+        try {            
             SelecionaOperacao so = new SelecionaOperacao();
+            getOperacoesPermitidas(so, m);
             so.setVisible(true);
             f.setVisible(false);
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public void getOperacoesPermitidas(SelecionaOperacao at, UsuarioModelo m) {
+        if (m.getAdmin() == 'S') {
+            at.rbtnAdministrador.setEnabled(true);
+        }
+        if (m.getGuicheA() == 'S') {
+            at.rbtnGuicheA.setEnabled(true);
+        }
+        if (m.getGuicheB() == 'S') {
+            at.rbtnGuicheB.setEnabled(true);
+        }
+        if (m.getGuicheC() == 'S') {
+            at.rbtnGuicheC.setEnabled(true);
+        }
+        if (m.getGuicheD() == 'S') {
+            at.rbtnGuicheD.setEnabled(true);
         }
     }
 

@@ -36,19 +36,36 @@ public class GuicheA extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         gbtnGerar = new javax.swing.ButtonGroup();
-        btnGerarSenha = new javax.swing.JButton();
-        rbtnSenhaNormal = new javax.swing.JRadioButton();
-        rbtnSenhaPreferencial = new javax.swing.JRadioButton();
         lblIcone = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
+        lblNomeAtendente = new javax.swing.JLabel();
+        lblAtendente = new javax.swing.JLabel();
+        btnGerarSenha = new javax.swing.JButton();
         tbtnPausarContinuar = new javax.swing.JToggleButton();
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
-        lblAtendente = new javax.swing.JLabel();
-        lblNomeAtendente = new javax.swing.JLabel();
-        btnVoltar = new javax.swing.JButton();
+        rbtnSenhaNormal = new javax.swing.JRadioButton();
+        rbtnSenhaPreferencial = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
+        getContentPane().add(lblIcone, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
+        getContentPane().add(lblNomeAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 70, 14));
+
+        lblAtendente.setText("Atendente:");
+        getContentPane().add(lblAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         btnGerarSenha.setText("Gerar Senha");
         btnGerarSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -56,9 +73,19 @@ public class GuicheA extends javax.swing.JFrame {
                 btnGerarSenhaActionPerformed(evt);
             }
         });
+        getContentPane().add(btnGerarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 33));
+
+        tbtnPausarContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/pause.png"))); // NOI18N
+        tbtnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnPausarContinuarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tbtnPausarContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 60, -1));
 
         gbtnGerar.add(rbtnSenhaNormal);
         rbtnSenhaNormal.setText("Normal");
+        getContentPane().add(rbtnSenhaNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
 
         gbtnGerar.add(rbtnSenhaPreferencial);
         rbtnSenhaPreferencial.setText("Preferencial");
@@ -67,98 +94,15 @@ public class GuicheA extends javax.swing.JFrame {
                 rbtnSenhaPreferencialActionPerformed(evt);
             }
         });
-
-        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
-
-        tbtnPausarContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/pause.png"))); // NOI18N
-        tbtnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbtnPausarContinuarActionPerformed(evt);
-            }
-        });
-
-        lblAtendente.setText("Atendente:");
-
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnVoltar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGerarSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbtnSenhaPreferencial)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbtnSenhaNormal))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAtendente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblIcone)
-                .addGap(55, 55, 55))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(lblIcone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtnSenhaPreferencial)
-                    .addComponent(rbtnSenhaNormal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGerarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21)
-                .addComponent(btnVoltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAtendente)
-                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(rbtnSenhaPreferencial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGerarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarSenhaActionPerformed
-
-        if (tbtnPausarContinuar.isSelected() == false) {
-            if (rbtnSenhaNormal.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaNormal());
-
-            } else if (rbtnSenhaPreferencial.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaPreferencial());
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione o tipo de senha!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Você não pode gerar senhas, pois está em momento de pausa.");
-        }
-
-
-    }//GEN-LAST:event_btnGerarSenhaActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        
+        controleTela.abrirSelecionaOperacao(this, TelaLogin.usuarioM);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void rbtnSenhaPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSenhaPreferencialActionPerformed
         // TODO add your handling code here:
@@ -176,9 +120,22 @@ public class GuicheA extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbtnPausarContinuarActionPerformed
 
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        controleTela.abrirSelecionaOperacao(this);
-    }//GEN-LAST:event_btnVoltarActionPerformed
+    private void btnGerarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarSenhaActionPerformed
+
+        if (tbtnPausarContinuar.isSelected() == false) {
+            if (rbtnSenhaNormal.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaNormal());
+
+            } else if (rbtnSenhaPreferencial.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Senha gerada: " + controleFila.gerarSenhaPreferencial());
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione o tipo de senha!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Você não pode gerar senhas, pois está em momento de pausa.");
+        }
+
+    }//GEN-LAST:event_btnGerarSenhaActionPerformed
 
     /**
      * @param args the command line arguments
