@@ -5,11 +5,11 @@
  */
 package br.com.engsoft.controll;
 
-import br.com.engsoft.main.GuicheA;
-import br.com.engsoft.main.GuicheDefault;
-import br.com.engsoft.main.IndexView;
-import br.com.engsoft.main.SelecionaOperacao;
-import br.com.engsoft.main.TelaLogin;
+import br.com.engsoft.main.refactor.TelaGuicheA;
+import br.com.engsoft.main.refactor.TelaGuichePadrao;
+import br.com.engsoft.main.refactor.TelaAdministrativa;
+import br.com.engsoft.main.refactor.TelaModulos;
+import br.com.engsoft.main.refactor.TelaLogin;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ControleDeTelas {
 
     public void abrirGuicheA(javax.swing.JFrame f, String atendente) {
         try {
-            GuicheA ga = new GuicheA();
+            TelaGuicheA ga = new TelaGuicheA();
             ga.setVisible(true);
             f.setVisible(false);
             ga.lblNomeAtendente.setText(atendente);
@@ -41,7 +41,7 @@ public class ControleDeTelas {
 
     public void abrirTelaAdm(javax.swing.JFrame f) {
         try {
-            IndexView ci = new IndexView();
+            TelaAdministrativa ci = new TelaAdministrativa();
             ci.setVisible(true);
             f.setVisible(false);
         } catch (Exception e) {
@@ -49,21 +49,25 @@ public class ControleDeTelas {
         }
     }
 
-    public void abrirGuicheDefault(javax.swing.JFrame f, String titulo, String atendente) {
+    public void abrirGuicheDefault(javax.swing.JFrame f, String titulo, String atendente, String guiche) {
         try {
-            GuicheDefault gd = new GuicheDefault();
-            gd.setVisible(true);
+            TelaGuichePadrao gp = new TelaGuichePadrao();
+            gp.setVisible(true);
             f.setVisible(false);
-            gd.lblTitulo.setText(titulo);
-            gd.lblNomeAtendente.setText(atendente);
+            if (guiche == "D") {
+                gp.btnTransferir.setEnabled(false);
+            }
+            gp.guicheAtendente = guiche;
+            gp.lblTitulo.setText(titulo);
+            gp.lblNomeAtendente.setText(atendente);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     public void abrirSelecionaOperacao(javax.swing.JFrame f, UsuarioModelo m) {
-        try {            
-            SelecionaOperacao so = new SelecionaOperacao();
+        try {
+            TelaModulos so = new TelaModulos();
             getOperacoesPermitidas(so, m);
             so.setVisible(true);
             f.setVisible(false);
@@ -72,7 +76,7 @@ public class ControleDeTelas {
         }
     }
 
-    public void getOperacoesPermitidas(SelecionaOperacao at, UsuarioModelo m) {
+    public void getOperacoesPermitidas(TelaModulos at, UsuarioModelo m) {
         if (m.getAdmin() == 'S') {
             at.rbtnAdministrador.setEnabled(true);
         }

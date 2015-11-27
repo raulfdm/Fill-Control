@@ -1,6 +1,11 @@
 package br.com.engsoft.controll;
 
 import br.com.engsoft.jdbc.DataBase;
+import br.com.engsoft.main.refactor.TelaGuichePadrao;
+import static br.com.engsoft.main.refactor.TelaGuichePadrao.guicheAtendente;
+import static br.com.engsoft.main.refactor.TelaGuichePadrao.sc;
+import static br.com.engsoft.main.refactor.TelaGuichePadrao.senhaAtualB;
+import static br.com.engsoft.main.refactor.TelaGuichePadrao.txtSenhaAtual;
 import br.com.engsoft.utils.utilitarios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,15 +33,6 @@ public class ControleDeFila {
     Integer senhaP = 0;
     Integer senhaN = 0;
 
-    //FILAS
-    protected ArrayList<String> filaNormal = new ArrayList();
-    protected ArrayList<String> filaPreferencial = new ArrayList();
-    //Transferencias de fila
-    protected ArrayList<String> filaGuicheB = new ArrayList();
-    protected ArrayList<String> filaGuicheC = new ArrayList();
-    protected ArrayList<String> filaGuicheD = new ArrayList();
-    protected ArrayList<String> filaAtendida = new ArrayList();
-
     //Constrole de Filas
     int tamanhoFilaNormal;
     int tamanhoFilaPreferencial;
@@ -50,31 +46,6 @@ public class ControleDeFila {
     }
 
     //GETTERS AND SETTERS
-    public ArrayList<String> getFilaNormal() {
-        return filaNormal;
-    }
-
-    public ArrayList<String> getFilaPreferencial() {
-        return filaPreferencial;
-    }
-
-    public ArrayList<String> getFilaAtendida() {
-        return filaAtendida;
-    }
-
-    public ArrayList<String> getFilaGuicheB() {
-        return filaGuicheB;
-    }
-
-    public String proximoDaFila() {
-
-        return null;
-    }
-
-    public int getIndexNormal() {
-        return filaNormal.indexOf(this);
-    }
-
     public int getTamanhoFilaNormal() {
         return tamanhoFilaNormal;
     }
@@ -128,29 +99,6 @@ public class ControleDeFila {
 
     }
 
-    public void tranfereGuicheB() {
-        if (filaPreferencial.isEmpty() != true) {
-            while (filaPreferencial.isEmpty() != true) {
-                String senha;
-                senha = filaPreferencial.get(0);
-                filaGuicheB.add(senha);
-                filaPreferencial.remove(0);
-                tamanhoFilaPreferencial--;
-                tamanhoFilaGuicheB++;
-            }
-        } else if (filaNormal.isEmpty() != true) {
-            while (filaNormal.isEmpty() != true) {
-                String senha;
-                senha = filaNormal.get(0);
-                filaGuicheB.add(senha);
-                filaNormal.remove(0);
-                tamanhoFilaNormal--;
-                tamanhoFilaGuicheB++;
-            }
-        }
-
-    }
-
     public void tranfereGuicheC(String senha, String data) {
         String sql = "update senha set guicheatendimento = 'C' where senha = ? "
                 + "and datageracao = ?";
@@ -173,16 +121,26 @@ public class ControleDeFila {
         }
     }
 
-    public void tranfereGuicheD(String senha) {
+    public void tranfereGuicheD(String senha, String data) {
 
-        for (int i = 0; i < filaGuicheC.size(); i++) {
+        String sql = "update senha set guicheatendimento = 'D' where senha = ? "
+                + "and datageracao = ?";
 
-            if (filaGuicheC.get(i).equals(senha)) {
-                filaGuicheC.remove(i);
-                filaGuicheD.add(senha);
-                tamanhoFilaGuicheC--;
-                tamanhoFilaGuicheD++;
-            }
+        Connection con = null;
+        PreparedStatement st = null;
+        try {
+            con = DataBase.getConnection();
+            st = con.prepareStatement(sql);
+
+            st.setString(1, senha);
+            st.setString(2, data);
+            st.executeUpdate();
+
+            //System.out.println(resultado);
+            st.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -287,7 +245,7 @@ public class ControleDeFila {
         }
     }
 
-    public SenhasControl chamarProximoCliente(char guiche, String data) throws SQLException {
+    public SenhasControl chamarProximoCliente(String guiche, String data) throws SQLException {
 
         String sqlN = "select * from senha where guicheatendimento = '" + guiche + "' "
                 + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
@@ -307,8 +265,8 @@ public class ControleDeFila {
 
             st.execute(sqlP);
             ResultSet rt = st.getResultSet();
-           
-            while (rt.next()) {                
+
+            while (rt.next()) {
                 senhaC.setIdsenha(rt.getLong("idsenha"));
                 senhaC.setSenha(rt.getString("senha"));
                 senhaC.setGuiche(rt.getString("guicheatendimento"));
@@ -339,7 +297,7 @@ public class ControleDeFila {
 
         return null;
     }
-    
+
     public void finalizaAtendimento(String senha, String data) {
         String sql = "update senha set status = 'FINALIZADO' where senha = ? "
                 + "and datageracao = ?";
@@ -359,6 +317,26 @@ public class ControleDeFila {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControleDeFila.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void chamaProximoFila() {
+        try {
+            //senhasControl sc = chamarProximoCliente(lblTitulo.getText().charAt(10), new utilitarios().dataAtual("dd/MM/yyyy"));
+            if (txtSenhaAtual.getText() == null || txtSenhaAtual.getText().equals("")) {
+                if (TelaGuichePadrao.emPausa == false) {
+
+                    sc = new ControleDeFila().chamarProximoCliente(guicheAtendente, new utilitarios().dataAtual("dd/MM/yyyy"));
+                    if (sc.getSenha() != null) {
+                        senhaAtualB = sc.getSenha();
+                        txtSenhaAtual.setText(senhaAtualB);
+                    } else {
+                        System.out.println("NÃO TEM CLIENTE: " + guicheAtendente);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaGuichePadrao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
