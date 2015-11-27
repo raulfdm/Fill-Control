@@ -9,12 +9,12 @@ package br.com.engsoft.main;
  *
  * @author Raul
  */
-public class CadastrarUsuarios extends javax.swing.JInternalFrame {
+public class SubTelaCadastroUsuario extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CadastrarUsuarios
      */
-    public CadastrarUsuarios() {
+    public SubTelaCadastroUsuario() {
         initComponents();
     }
 

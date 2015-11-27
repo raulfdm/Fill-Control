@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
 import br.com.engsoft.main.*;
 import br.com.engsoft.controll.ControleDeTelas;
@@ -262,7 +262,7 @@ public class TelaLogin extends javax.swing.JFrame {
         usuarioM = new ValidacaoLogin().validarSenha(usuario.toUpperCase(), senha.toUpperCase());
 
         if (usuarioM.isValidado() == true) {
-            SelecionaOperacao at = new SelecionaOperacao();
+            TelaModulos at = new TelaModulos();
             atendente = usuarioM.getUsuario();
             new ControleDeTelas().getOperacoesPermitidas(at, usuarioM);
 

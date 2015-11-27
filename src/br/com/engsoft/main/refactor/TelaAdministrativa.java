@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
+import br.com.engsoft.main.SubTelaConfiguracao;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
@@ -23,12 +24,12 @@ import javax.swing.JOptionPane;
  *
  * @author Raul
  */
-public class IndexView extends javax.swing.JFrame {
+public class TelaAdministrativa extends javax.swing.JFrame {
 
     /**
      * Creates new form IndexView
      */
-    public IndexView() {
+    public TelaAdministrativa() {
         initComponents();
         configuracaoTela();
     }
@@ -271,20 +272,21 @@ public class IndexView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IndexView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IndexView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IndexView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IndexView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrativa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IndexView().setVisible(true);
+                new TelaAdministrativa().setVisible(true);
             }
         });
     }
@@ -345,7 +347,7 @@ public class IndexView extends javax.swing.JFrame {
             tbtnAtendenteA1.setIcon(logo);
 
         } catch (URISyntaxException ex) {
-            Logger.getLogger(GuicheDefault.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaGuichePadrao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
 
@@ -363,7 +365,7 @@ public class IndexView extends javax.swing.JFrame {
             tbtnAtendenteA1.setIcon(logo);
 
         } catch (URISyntaxException ex) {
-            Logger.getLogger(GuicheDefault.class
+            Logger.getLogger(TelaGuichePadrao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         return false;
@@ -371,7 +373,7 @@ public class IndexView extends javax.swing.JFrame {
 
     private void abrirConfiguracaoGeral() {
         try {
-            ConfiguracaoView ci = new ConfiguracaoView();
+            SubTelaConfiguracao ci = new SubTelaConfiguracao();
             ci.setVisible(true);
         } catch (Exception e) {
             System.out.println("tela Login 216 \n" + e);

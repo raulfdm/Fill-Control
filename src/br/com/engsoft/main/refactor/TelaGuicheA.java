@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
+import br.com.engsoft.main.refactor.TelaLogin;
 import br.com.engsoft.controll.ControleDeFila;
 import br.com.engsoft.controll.ControleDeTelas;
 import br.com.engsoft.utils.AlteraImagens;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Raul
  */
-public class GuicheA extends javax.swing.JFrame {
+public class TelaGuicheA extends javax.swing.JFrame {
 
     ControleDeFila controleFila = new ControleDeFila();
     ControleDeTelas controleTela = new ControleDeTelas();
@@ -23,7 +25,7 @@ public class GuicheA extends javax.swing.JFrame {
     /**
      * Creates new form GuicheA
      */
-    public GuicheA() {
+    public TelaGuicheA() {
         initComponents();
         configuracaoTela();
     }
@@ -36,10 +38,8 @@ public class GuicheA extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         gbtnGerar = new javax.swing.ButtonGroup();
-        lblIcone = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
         lblNomeAtendente = new javax.swing.JLabel();
         lblAtendente = new javax.swing.JLabel();
@@ -48,12 +48,11 @@ public class GuicheA extends javax.swing.JFrame {
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
         rbtnSenhaNormal = new javax.swing.JRadioButton();
         rbtnSenhaPreferencial = new javax.swing.JRadioButton();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
-        getContentPane().add(lblIcone, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        setResizable(false);
+        setSize(new java.awt.Dimension(0, 0));
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,11 +60,8 @@ public class GuicheA extends javax.swing.JFrame {
                 btnVoltarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
-        getContentPane().add(lblNomeAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 70, 14));
 
         lblAtendente.setText("Atendente:");
-        getContentPane().add(lblAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         btnGerarSenha.setText("Gerar Senha");
         btnGerarSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +69,6 @@ public class GuicheA extends javax.swing.JFrame {
                 btnGerarSenhaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGerarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 100, 33));
 
         tbtnPausarContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/pause.png"))); // NOI18N
         tbtnPausarContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,20 +76,71 @@ public class GuicheA extends javax.swing.JFrame {
                 tbtnPausarContinuarActionPerformed(evt);
             }
         });
-        getContentPane().add(tbtnPausarContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 60, -1));
 
         gbtnGerar.add(rbtnSenhaNormal);
         rbtnSenhaNormal.setText("Normal");
-        getContentPane().add(rbtnSenhaNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        rbtnSenhaNormal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         gbtnGerar.add(rbtnSenhaPreferencial);
         rbtnSenhaPreferencial.setText("Preferencial");
+        rbtnSenhaPreferencial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rbtnSenhaPreferencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnSenhaPreferencialActionPerformed(evt);
             }
         });
-        getContentPane().add(rbtnSenhaPreferencial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTitulo.setText("ATENDENTE A");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(rbtnSenhaPreferencial)
+                        .addGap(7, 7, 7)
+                        .addComponent(rbtnSenhaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnGerarSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblAtendente)
+                        .addGap(5, 5, 5)
+                        .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(lblTitulo))))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(lblTitulo)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbtnSenhaPreferencial)
+                    .addComponent(rbtnSenhaNormal))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGerarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbtnPausarContinuar))
+                .addGap(33, 33, 33)
+                .addComponent(btnVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAtendente)
+                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,26 +194,27 @@ public class GuicheA extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+
+                javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                break;
+
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuicheA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuicheA().setVisible(true);
+                new TelaGuicheA().setVisible(true);
             }
         });
     }
@@ -177,8 +224,8 @@ public class GuicheA extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup gbtnGerar;
     private javax.swing.JLabel lblAtendente;
-    private javax.swing.JLabel lblIcone;
     public javax.swing.JLabel lblNomeAtendente;
+    public javax.swing.JLabel lblTitulo;
     private javax.swing.JRadioButton rbtnSenhaNormal;
     private javax.swing.JRadioButton rbtnSenhaPreferencial;
     private javax.swing.JToggleButton tbtnPausarContinuar;

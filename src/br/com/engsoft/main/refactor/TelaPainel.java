@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -18,7 +18,7 @@ import javax.swing.Timer;
  *
  * @author Raul
  */
-public class ChamadaView extends javax.swing.JFrame {
+public class TelaPainel extends javax.swing.JFrame {
 
     JLabel pic;
     Timer tm;
@@ -31,7 +31,7 @@ public class ChamadaView extends javax.swing.JFrame {
         "C:\\Users\\Raul\\Documents\\GitHub\\Fill-Control\\imagens\\Untitled-3.jpg"
     };
 
-    public ChamadaView() {
+    public TelaPainel() {
         initComponents();
         configuracaoTela();
         System.out.println(jpnSlide.getBounds());
@@ -45,7 +45,6 @@ public class ChamadaView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -64,7 +63,6 @@ public class ChamadaView extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1201, 604));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -245,20 +243,21 @@ public class ChamadaView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChamadaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPainel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChamadaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPainel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChamadaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPainel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChamadaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPainel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChamadaView().setVisible(true);
+                new TelaPainel().setVisible(true);
 
             }
 

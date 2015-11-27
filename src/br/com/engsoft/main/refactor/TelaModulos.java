@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
 import javax.swing.JFrame;
 import br.com.engsoft.controll.ControleDeTelas;
@@ -13,11 +13,11 @@ import javax.swing.UIManager;
  *
  * @author Raul
  */
-public class SelecionaOperacao extends javax.swing.JFrame {
+public class TelaModulos extends javax.swing.JFrame {
 
     ControleDeTelas controleTela = new ControleDeTelas();
 
-    public SelecionaOperacao() {
+    public TelaModulos() {
         initComponents();
         configuracaoTela();
 
@@ -206,11 +206,11 @@ public class SelecionaOperacao extends javax.swing.JFrame {
         } else if (rbtnGuicheA.isSelected()) {
             controleTela.abrirGuicheA(this, TelaLogin.atendente);
         } else if (rbtnGuicheB.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE B", TelaLogin.atendente);
+            controleTela.abrirGuicheDefault(this, "ATENDENTE B", TelaLogin.atendente, "B");            
         } else if (rbtnGuicheC.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE C", TelaLogin.atendente);
+            controleTela.abrirGuicheDefault(this, "ATENDENTE C", TelaLogin.atendente, "C");
         } else if (rbtnGuicheD.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE D", TelaLogin.atendente);
+            controleTela.abrirGuicheDefault(this, "ATENDENTE D", TelaLogin.atendente, "D");
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
@@ -235,14 +235,20 @@ public class SelecionaOperacao extends javax.swing.JFrame {
 
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SelecionaOperacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaModulos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SelecionaOperacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaModulos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SelecionaOperacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaModulos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SelecionaOperacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaModulos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -250,7 +256,7 @@ public class SelecionaOperacao extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new SelecionaOperacao().setVisible(true);
+                new TelaModulos().setVisible(true);
             }
         });
     }

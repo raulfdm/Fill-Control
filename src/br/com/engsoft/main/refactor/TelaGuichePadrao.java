@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.engsoft.main;
+package br.com.engsoft.main.refactor;
 
+import br.com.engsoft.controll.ChamarProximoCliente;
+import br.com.engsoft.main.refactor.TelaLogin;
 import br.com.engsoft.controll.ControleDeFila;
 import br.com.engsoft.utils.AlteraImagens;
 import br.com.engsoft.utils.utilitarios;
@@ -26,12 +28,15 @@ import javax.swing.UIManager;
  *
  * @author Raul
  */
-public class GuicheDefault extends javax.swing.JFrame {
+public class TelaGuichePadrao extends javax.swing.JFrame {
 
     ControleDeFila controleFila = new ControleDeFila();
+    static public String guicheAtendente;
+    static public SenhasControl sc = new SenhasControl();
+    static public boolean emPausa = true;
 
     boolean pausado = false;
-    String senhaAtualB = null;
+    static public String senhaAtualB = null;
     String senhaAnteriorB = null;
 
     String senhaAtualC = null;
@@ -43,7 +48,7 @@ public class GuicheDefault extends javax.swing.JFrame {
     /**
      * Creates new form AtendenteView
      */
-    public GuicheDefault() {
+    public TelaGuichePadrao() throws InterruptedException {
         initComponents();
 
         configuracaoTela();
@@ -59,29 +64,46 @@ public class GuicheDefault extends javax.swing.JFrame {
     private void initComponents() {
 
         lblSenhaAnterior = new javax.swing.JLabel();
-        txtSenhaAnterior = new javax.swing.JTextField();
         lblSenhaAtual = new javax.swing.JLabel();
-        txtSenhaAtual = new javax.swing.JTextField();
-
-        btnProximo = new javax.swing.JButton();
-        btnProximo.setToolTipText("Próxima Senha da Fila");
         lblAtendente = new javax.swing.JLabel();
         lblNomeAtendente = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblData.setText(dataAtual());
         lblTitulo = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        txtSenhaAnterior = new javax.swing.JTextField();
+        txtSenhaAtual = new javax.swing.JTextField();
+
+        pnlAcoes = new javax.swing.JPanel();
+        btnTransferir = new javax.swing.JButton();
+        btnProximo = new javax.swing.JButton();
+        btnProximo.setToolTipText("Próxima Senha da Fila");
         btnFinalizar = new javax.swing.JButton();
         btnFinalizar.setToolTipText("Finalizar Atendimento");  
         tbtnPausarContinuar = new javax.swing.JToggleButton();
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
-        btnTransferir = new javax.swing.JButton();
-        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         lblSenhaAnterior.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblSenhaAnterior.setText("Anterior");
+
+        lblSenhaAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSenhaAtual.setText("Atual");
+
+        lblAtendente.setText("Atendente:");
+
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTitulo.setText("ATENDENTE B");
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         txtSenhaAnterior.setEditable(false);
         txtSenhaAnterior.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -92,9 +114,7 @@ public class GuicheDefault extends javax.swing.JFrame {
                 txtSenhaAnteriorActionPerformed(evt);
             }
         });
-
-        lblSenhaAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblSenhaAtual.setText("Atual");
+        jSplitPane1.setLeftComponent(txtSenhaAnterior);
 
         txtSenhaAtual.setEditable(false);
         txtSenhaAtual.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -105,6 +125,16 @@ public class GuicheDefault extends javax.swing.JFrame {
                 txtSenhaAtualActionPerformed(evt);
             }
         });
+        jSplitPane1.setRightComponent(txtSenhaAtual);
+
+        pnlAcoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
+
+        btnTransferir.setText("Transferir");
+        btnTransferir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransferirActionPerformed(evt);
+            }
+        });
 
         btnProximo.setText("Chamar Próximo");
         btnProximo.addActionListener(new java.awt.event.ActionListener() {
@@ -112,11 +142,6 @@ public class GuicheDefault extends javax.swing.JFrame {
                 btnProximoActionPerformed(evt);
             }
         });
-
-        lblAtendente.setText("Atendente:");
-
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblTitulo.setText("ATENDENTE B");
 
         btnFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/Fim.png"))); // NOI18N
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,100 +157,89 @@ public class GuicheDefault extends javax.swing.JFrame {
             }
         });
 
-        btnTransferir.setText("Transferir");
-        btnTransferir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTransferirActionPerformed(evt);
-            }
-        });
-
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlAcoesLayout = new javax.swing.GroupLayout(pnlAcoes);
+        pnlAcoes.setLayout(pnlAcoesLayout);
+        pnlAcoesLayout.setHorizontalGroup(
+            pnlAcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAcoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlAcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAcoesLayout.createSequentialGroup()
+                        .addComponent(btnTransferir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAcoesLayout.createSequentialGroup()
+                        .addComponent(btnProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4))
+        );
+        pnlAcoesLayout.setVerticalGroup(
+            pnlAcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAcoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlAcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnProximo, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbtnPausarContinuar)
+                    .addComponent(btnTransferir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
+                .addComponent(pnlAcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(btnVoltar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblAtendente)
+                        .addGap(15, 15, 15)
+                        .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitulo)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(9, 9, 9)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(btnProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(btnTransferir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(lblSenhaAnterior)))
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtSenhaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSenhaAtual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(33, 33, 33)
-                                        .addComponent(lblSenhaAtual))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTitulo)
-                                .addGap(27, 27, 27)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnVoltar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAtendente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18))))
+                                .addComponent(lblSenhaAnterior)
+                                .addGap(93, 93, 93)
+                                .addComponent(lblSenhaAtual)))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSenhaAnterior)
                     .addComponent(lblSenhaAtual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSenhaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTransferir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(pnlAcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(btnVoltar)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblAtendente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNomeAtendente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAtendente)
+                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -235,22 +249,20 @@ public class GuicheDefault extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaAtualActionPerformed
 
-    private void txtSenhaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaAnteriorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaAnteriorActionPerformed
-
     private void tbtnPausarContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnPausarContinuarActionPerformed
         if (tbtnPausarContinuar.isSelected() == false) {
             tbtnPausarContinuar.setIcon(new AlteraImagens().pauseIcon());
+            emPausa = false;
 
         } else if (tbtnPausarContinuar.isSelected() == true) {
             tbtnPausarContinuar.setIcon(new AlteraImagens().continueIcon());
+            emPausa = true;
         }
 
     }//GEN-LAST:event_tbtnPausarContinuarActionPerformed
 
     private void btnTransferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferirActionPerformed
-
+        System.out.println(guicheAtendente);
         Object[] options = {"Sim", "Não"};
         if (txtSenhaAtual.getText().equals(null) || txtSenhaAtual.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Você não está em atendimento no momento");
@@ -260,10 +272,18 @@ public class GuicheDefault extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (i == JOptionPane.YES_OPTION) {
-                senhaAnteriorB = senhaAtualB;
-                txtSenhaAnterior.setText(senhaAnteriorB);//não vai poder ser definido como B, usar IF
-                txtSenhaAtual.setText("");
-                controleFila.tranfereGuicheC(senhaAnteriorB, new utilitarios().dataAtual("dd/MM/yyyy"));
+                if (guicheAtendente == "B") {
+                    senhaAnteriorB = txtSenhaAtual.getText();
+                    txtSenhaAnterior.setText(senhaAnteriorB);//não vai poder ser definido como B, usar IF
+                    txtSenhaAtual.setText("");
+                    controleFila.tranfereGuicheC(senhaAnteriorB, new utilitarios().dataAtual("dd/MM/yyyy"));
+                } else if (guicheAtendente == "C") {
+                    senhaAnteriorC = txtSenhaAtual.getText();
+                    txtSenhaAnterior.setText(senhaAnteriorC);//não vai poder ser definido como B, usar IF
+                    txtSenhaAtual.setText("");
+                    controleFila.tranfereGuicheD(senhaAnteriorC, new utilitarios().dataAtual("dd/MM/yyyy"));
+                }
+
             }
         }
 
@@ -271,19 +291,7 @@ public class GuicheDefault extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTransferirActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
-        try {
-            //senhasControl sc = chamarProximoCliente(lblTitulo.getText().charAt(10), new utilitarios().dataAtual("dd/MM/yyyy"));
-            SenhasControl sc = new ControleDeFila().chamarProximoCliente('B', new utilitarios().dataAtual("dd/MM/yyyy"));
-            if (sc != null || !sc.equals("")) {
-                senhaAtualB = sc.getSenha();
-                txtSenhaAtual.setText(senhaAtualB);
-            } else {
-                JOptionPane.showMessageDialog(null, "Não há senha a ser chamada.");
-            }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(GuicheDefault.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btnProximoActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
@@ -293,10 +301,11 @@ public class GuicheDefault extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não está em atendimento no momento");
         } else {
             int i = JOptionPane.showOptionDialog(null,
-                    "Deseja realmente transmitir o cliente\npara o próximo atendente?", "Saída",
+                    "Deseja realmente transferir o cliente\npara o próximo atendente?", "Saída",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     options, options[0]);
             if (i == JOptionPane.YES_OPTION) {
+
                 controleFila.finalizaAtendimento(txtSenhaAtual.getText(), new utilitarios().dataAtual("dd/MM/yyyy"));
                 senhaAnteriorB = senhaAtualB;
                 txtSenhaAnterior.setText(senhaAnteriorB);//não vai poder ser definido como B, usar IF
@@ -309,13 +318,17 @@ public class GuicheDefault extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
 
-         new ControleDeTelas().abrirSelecionaOperacao(this, TelaLogin.usuarioM);
+        new ControleDeTelas().abrirSelecionaOperacao(this, TelaLogin.usuarioM);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void txtSenhaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -329,23 +342,32 @@ public class GuicheDefault extends javax.swing.JFrame {
 
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GuicheDefault.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuichePadrao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GuicheDefault.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuichePadrao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GuicheDefault.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuichePadrao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GuicheDefault.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGuichePadrao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GuicheDefault().setVisible(true);
+                try {
+                    new TelaGuichePadrao().setVisible(true);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TelaGuichePadrao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,15 +375,17 @@ public class GuicheDefault extends javax.swing.JFrame {
     private javax.swing.JButton btnProximo;
     public javax.swing.JButton btnTransferir;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblAtendente;
     private javax.swing.JLabel lblData;
     public javax.swing.JLabel lblNomeAtendente;
     private javax.swing.JLabel lblSenhaAnterior;
     private javax.swing.JLabel lblSenhaAtual;
     public javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlAcoes;
     public javax.swing.JToggleButton tbtnPausarContinuar;
     private javax.swing.JTextField txtSenhaAnterior;
-    private javax.swing.JTextField txtSenhaAtual;
+    public static javax.swing.JTextField txtSenhaAtual;
     // End of variables declaration//GEN-END:variables
 
     public String dataAtual() {
@@ -372,15 +396,26 @@ public class GuicheDefault extends javax.swing.JFrame {
         return reportDate;
     }
 
-    private void configuracaoTela() {
+    private void configuracaoTela() throws InterruptedException {
         //Bloqueia o redimensionamento
         this.getContentPane().setBackground(new Color(211, 211, 211));
         this.setResizable(false);
+
         //Coloca o jframe no centro
         this.setLocationRelativeTo(null);
         //Fechar toda a Aplicação ao clicar no botão Fechar
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jSplitPane1.setDividerLocation(jSplitPane1.getWidth() / 2);
+        jSplitPane1.setEnabled(false);
+        jSplitPane1.setBackground(new Color(211, 211, 211));
+        pnlAcoes.setBackground(new Color(211, 211, 211));
+        tbtnPausarContinuar.setSelected(true);
+        tbtnPausarContinuar.setIcon(new AlteraImagens().continueIcon());
 
+        ChamarProximoCliente proximo = new ChamarProximoCliente();
+        Thread t = new Thread(proximo);
+        //Thread.sleep(10000);
+        t.start();
     }
 
 }
