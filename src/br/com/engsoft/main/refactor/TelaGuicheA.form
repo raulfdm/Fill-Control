@@ -34,57 +34,55 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                      <Component id="rbtnSenhaPreferencial" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                      <Component id="rbtnSenhaNormal" min="-2" pref="80" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnGerarSenha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tbtnPausarContinuar" min="-2" pref="60" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Component id="lblAtendente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblNomeAtendente" min="-2" pref="70" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnVoltar" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="lblTitulo" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel1" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnGerarSenha" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tbtnPausarContinuar" pref="75" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <Component id="btnVoltar" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlTipoSenha" min="-2" pref="183" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="rbtnSenhaPreferencial" min="-2" max="-2" attributes="0"/>
-                  <Component id="rbtnSenhaNormal" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlTipoSenha" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnGerarSenha" min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="tbtnPausarContinuar" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnVoltar" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblAtendente" min="-2" max="-2" attributes="0"/>
                   <Component id="lblNomeAtendente" min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="lblAtendente" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,6 +90,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnVoltar">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lato" size="12" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
       <Events>
@@ -99,17 +100,28 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNomeAtendente">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lato" size="12" style="0"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAtendente">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lato" size="12" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Atendente:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnGerarSenha">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lato" size="12" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Gerar Senha"/>
       </Properties>
       <Events>
@@ -129,37 +141,61 @@
         <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tbtnPausarContinuar.setToolTipText(&quot;Pausar/Continuar Atendimento&quot;);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="rbtnSenhaNormal">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="gbtnGerar"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Normal"/>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="rbtnSenhaPreferencial">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="gbtnGerar"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Preferencial"/>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnSenhaPreferencialActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="lblTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="24" style="1"/>
+          <Font name="Lato" size="24" style="1"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="ATENDENTE A"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/com/engsoft/img/logo64.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="pnlTipoSenha">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JRadioButton" name="rbtnSenhaPreferencial">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="gbtnGerar"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lato" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Preferencial"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnSenhaPreferencialActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="rbtnSenhaNormal">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="gbtnGerar"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lato" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Normal"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnSenhaNormalActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

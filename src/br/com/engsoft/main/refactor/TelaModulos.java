@@ -7,6 +7,9 @@ package br.com.engsoft.main.refactor;
 
 import javax.swing.JFrame;
 import br.com.engsoft.controll.ControleDeTelas;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -31,62 +34,65 @@ public class TelaModulos extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        gbtnTelas = new javax.swing.ButtonGroup();
+        lblLogo = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         rbtnAdministrador = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
         rbtnGuicheA = new javax.swing.JRadioButton();
-        rbtnGuicheC = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        cbbGuicheA = new javax.swing.JComboBox<>();
         rbtnGuicheB = new javax.swing.JRadioButton();
+        cbbGuicheB = new javax.swing.JComboBox<>();
+        rbtnGuicheC = new javax.swing.JRadioButton();
+        cbbGuicheC = new javax.swing.JComboBox<>();
         rbtnGuicheD = new javax.swing.JRadioButton();
-        jPanel4 = new javax.swing.JPanel();
-        btnVoltar = new javax.swing.JButton();
+        cbbGuicheD = new javax.swing.JComboBox<>();
         btnAbrir = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblLogo.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/logo64.png"))); // NOI18N
+
+        lblTitulo.setFont(new java.awt.Font("Lato", 1, 14)); // NOI18N
         lblTitulo.setText("Selecione o módulo:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 5, 0);
-        getContentPane().add(lblTitulo, gridBagConstraints);
 
-        buttonGroup1.add(rbtnAdministrador);
+        rbtnAdministrador.setBackground(new java.awt.Color(211, 211, 211));
+        gbtnTelas.add(rbtnAdministrador);
+        rbtnAdministrador.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         rbtnAdministrador.setText("Administrador");
         rbtnAdministrador.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(4, 6, 0, 0);
-        getContentPane().add(rbtnAdministrador, gridBagConstraints);
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        buttonGroup1.add(rbtnGuicheA);
+        rbtnGuicheA.setBackground(new java.awt.Color(211, 211, 211));
+        gbtnTelas.add(rbtnGuicheA);
+        rbtnGuicheA.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         rbtnGuicheA.setText("Guichê A");
         rbtnGuicheA.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        jPanel1.add(rbtnGuicheA, gridBagConstraints);
 
-        buttonGroup1.add(rbtnGuicheC);
+        cbbGuicheA.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        cbbGuicheA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
+        cbbGuicheA.setEnabled(false);
+        cbbGuicheA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbGuicheAActionPerformed(evt);
+            }
+        });
+
+        rbtnGuicheB.setBackground(new java.awt.Color(211, 211, 211));
+        gbtnTelas.add(rbtnGuicheB);
+        rbtnGuicheB.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        rbtnGuicheB.setText("Guichê B");
+        rbtnGuicheB.setEnabled(false);
+
+        cbbGuicheB.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        cbbGuicheB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cbbGuicheB.setEnabled(false);
+
+        rbtnGuicheC.setBackground(new java.awt.Color(211, 211, 211));
+        gbtnTelas.add(rbtnGuicheC);
+        rbtnGuicheC.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         rbtnGuicheC.setText("Guichê C");
         rbtnGuicheC.setEnabled(false);
         rbtnGuicheC.addActionListener(new java.awt.event.ActionListener() {
@@ -94,104 +100,116 @@ public class TelaModulos extends javax.swing.JFrame {
                 rbtnGuicheCActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        jPanel1.add(rbtnGuicheC, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 6, 3, 8);
-        getContentPane().add(jPanel1, gridBagConstraints);
-
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        buttonGroup1.add(rbtnGuicheB);
-        rbtnGuicheB.setText("Guichê B");
-        rbtnGuicheB.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        jPanel2.add(rbtnGuicheB, gridBagConstraints);
-
-        buttonGroup1.add(rbtnGuicheD);
-        rbtnGuicheD.setText("Guichê D");
-        rbtnGuicheD.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        jPanel2.add(rbtnGuicheD, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel3.add(jPanel2, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 6, 3, 8);
-        getContentPane().add(jPanel3, gridBagConstraints);
-
-        jPanel4.setLayout(new java.awt.GridBagLayout());
-
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+        cbbGuicheC.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        cbbGuicheC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        cbbGuicheC.setEnabled(false);
+        cbbGuicheC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
+                cbbGuicheCActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel4.add(btnVoltar, gridBagConstraints);
 
+        rbtnGuicheD.setBackground(new java.awt.Color(211, 211, 211));
+        gbtnTelas.add(rbtnGuicheD);
+        rbtnGuicheD.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        rbtnGuicheD.setText("Guichê D");
+        rbtnGuicheD.setEnabled(false);
+
+        cbbGuicheD.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        cbbGuicheD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cbbGuicheD.setEnabled(false);
+        cbbGuicheD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbGuicheDActionPerformed(evt);
+            }
+        });
+
+        btnAbrir.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         btnAbrir.setText("Abrir");
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
-        jPanel4.add(btnAbrir, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(12, 6, 7, 6);
-        getContentPane().add(jPanel4, gridBagConstraints);
+        btnVoltar.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo)
+                        .addGap(4, 4, 4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtnGuicheD)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbbGuicheD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAbrir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVoltar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtnGuicheC)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbbGuicheC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rbtnGuicheB)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbbGuicheB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(rbtnAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(rbtnGuicheA)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(cbbGuicheA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblLogo)
+                .addGap(17, 17, 17)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbtnAdministrador)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbtnGuicheA)
+                    .addComponent(cbbGuicheA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnGuicheB)
+                    .addComponent(cbbGuicheB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnGuicheC)
+                    .addComponent(cbbGuicheC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbGuicheD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbtnGuicheD))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,19 +222,52 @@ public class TelaModulos extends javax.swing.JFrame {
         if (rbtnAdministrador.isSelected()) {
             controleTela.abrirTelaAdm(this);
         } else if (rbtnGuicheA.isSelected()) {
-            controleTela.abrirGuicheA(this, TelaLogin.atendente);
+            controleTela.abrirGuicheA(this, "ATENDENTE A" + cbbGuicheA.getSelectedItem(), TelaLogin.atendente);
         } else if (rbtnGuicheB.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE B", TelaLogin.atendente, "B");            
+            try {
+                int numeroGuiche = Integer.parseInt(cbbGuicheB.getSelectedItem().toString());
+                String guiche = "B" + numeroGuiche;
+                String titulo = "ATENDENTE " + guiche;
+                controleTela.abrirGuicheDefault(this, titulo, TelaLogin.atendente, guiche);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaModulos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (rbtnGuicheC.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE C", TelaLogin.atendente, "C");
+            try {
+                int numeroGuiche = (int) cbbGuicheC.getSelectedItem();
+                String guiche = "C" + numeroGuiche;
+                String titulo = "ATENDENTE " + guiche;
+                controleTela.abrirGuicheDefault(this, titulo, TelaLogin.atendente, guiche);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaModulos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (rbtnGuicheD.isSelected()) {
-            controleTela.abrirGuicheDefault(this, "ATENDENTE D", TelaLogin.atendente, "D");
+            try {
+                int numeroGuiche = (int) cbbGuicheD.getSelectedItem();
+                String guiche = "D" + numeroGuiche;
+                String titulo = "ATENDENTE " + guiche;
+                controleTela.abrirGuicheDefault(this, titulo, TelaLogin.atendente, guiche);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaModulos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         controleTela.abrirLogin(this);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void cbbGuicheAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGuicheAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbGuicheAActionPerformed
+
+    private void cbbGuicheCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGuicheCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbGuicheCActionPerformed
+
+    private void cbbGuicheDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGuicheDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbGuicheDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,11 +315,12 @@ public class TelaModulos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    public javax.swing.JComboBox<String> cbbGuicheA;
+    public javax.swing.JComboBox<String> cbbGuicheB;
+    public javax.swing.JComboBox<String> cbbGuicheC;
+    public javax.swing.JComboBox<String> cbbGuicheD;
+    private javax.swing.ButtonGroup gbtnTelas;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     public javax.swing.JRadioButton rbtnAdministrador;
     public javax.swing.JRadioButton rbtnGuicheA;
@@ -278,6 +330,7 @@ public class TelaModulos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configuracaoTela() {
+        this.getContentPane().setBackground(new Color(211, 211, 211));
         //Bloqueia o redimensionamento
         this.setResizable(false);
         //Coloca o jframe no centro

@@ -6,7 +6,7 @@
 package diversos;
 
 import br.com.engsoft.controll.ControleDeFila;
-import br.com.engsoft.controll.SenhasControl;
+import br.com.engsoft.controll.FilaAtendimento;
 import br.com.engsoft.jdbc.DataBase;
 import br.com.engsoft.utils.utilitarios;
 import java.sql.Connection;
@@ -61,11 +61,11 @@ public class TesteConsulta {
         try {
             con = DataBase.getConnection();
             st = con.createStatement();
-            boolean trouxe = st.execute(sql);
+             st.execute(sql);
             ResultSet rt = st.getResultSet();
-            int row = 0;
+            
             while (rt.next()) {
-                row += rt.getRow();
+            rt.getRow();
 
 //                RowId coluna2 = rt.getRowId(0);
 //                RowId coluna3 = rt.getRowId(0);
@@ -73,9 +73,7 @@ public class TesteConsulta {
 //                RowId coluna5 = rt.getRowId(0);
 //                RowId coluna6 = rt.getRowId(0);
             }
-            System.out.println(trouxe);
-            System.out.println(row);
-            System.out.println(sql);
+
 
             rt.close();
             st.close();
@@ -88,7 +86,7 @@ public class TesteConsulta {
         return senhaMax;
     }
 
-    private SenhasControl chamarProximoCliente(char guiche, String data) throws SQLException {
+    private FilaAtendimento chamarProximoCliente(char guiche, String data) throws SQLException {
 
         String sqlN = "select * from senha where guicheatendimento = '" + guiche + "' "
                 + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
@@ -98,7 +96,7 @@ public class TesteConsulta {
                 + "and status like 'ATENDIMENTO'and datageracao = '" + data + "' and "
                 + "senha like '%P%' and rownum = 1 group by idsenha, senha";
 
-        SenhasControl senhaC = new SenhasControl();
+        FilaAtendimento senhaC = new FilaAtendimento();
         Connection con;
         Statement st;
 
@@ -110,10 +108,10 @@ public class TesteConsulta {
             ResultSet rt = st.getResultSet();
            
             while (rt.next()) {                
-                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setIdSenha(rt.getLong("idsenha"));
                 senhaC.setSenha(rt.getString("senha"));
-                senhaC.setGuiche(rt.getString("guicheatendimento"));
-                senhaC.setStatus(rt.getString("status"));
+                senhaC.setGuicheAtendimento(rt.getString("guicheatendimento"));
+                senhaC.setStatusAtendimento(rt.getString("status"));
                 System.out.println(senhaC.toString());
                 return senhaC;
             }
@@ -121,10 +119,10 @@ public class TesteConsulta {
             st.execute(sqlN);
             rt = st.getResultSet();
             while (rt.next()) {
-                senhaC.setIdsenha(rt.getLong("idsenha"));
+                senhaC.setIdSenha(rt.getLong("idsenha"));
                 senhaC.setSenha(rt.getString("senha"));
-                senhaC.setGuiche(rt.getString("guicheatendimento"));
-                senhaC.setStatus(rt.getString("status"));
+                senhaC.setGuicheAtendimento(rt.getString("guicheatendimento"));
+                senhaC.setStatusAtendimento(rt.getString("status"));
                 System.out.println(senhaC.toString());
                 return senhaC;
             }

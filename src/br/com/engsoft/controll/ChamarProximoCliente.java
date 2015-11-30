@@ -6,9 +6,14 @@
 package br.com.engsoft.controll;
 
 import br.com.engsoft.controll.ControleDeFila;
+import br.com.engsoft.main.refactor.TelaGuichePadrao;
+import br.com.engsoft.utils.utilitarios;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+        
 /**
  *
  * @author Raul
@@ -16,16 +21,44 @@ import java.util.logging.Logger;
 public class ChamarProximoCliente implements Runnable {
 
     ControleDeFila c = new ControleDeFila();
-
-    @Override
+    //public String senhaAtual;
+    //public String telaChamada;
+    public FilaAtendimento fila = new FilaAtendimento();
 
     public void run() {
+        String tela = fila.getTela();
+        String senhaAtual;
         while (true) {
-            try {
-                c.chamaProximoFila();
-                Thread.sleep(5000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ChamarProximoCliente.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (fila.getSenha() == null) {
+                if (tela != null) {
+                    if (tela.equals("TelaGuichePadrao")) {
+                        try {
+                            Thread.sleep(5000);
+                            senhaAtual = TelaGuichePadrao.senhaAtual;
+                            if ( senhaAtual == null || "".equals(senhaAtual)) {
+                                c.chamaProximoFila("");
+                            }
+                            
+                                   
+
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ChamarProximoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ChamarProximoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (tela.equals("TelaPainel")) {
+                        try {
+                            Thread.sleep(5000);
+                            c.chamarPainelCliente(new utilitarios().dataAtual("dd/MM/yyyy"));                            
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ChamarProximoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ChamarProximoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+
             }
         }
 

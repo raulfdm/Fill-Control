@@ -9,6 +9,7 @@ import br.com.engsoft.main.refactor.TelaLogin;
 import br.com.engsoft.controll.ControleDeFila;
 import br.com.engsoft.controll.ControleDeTelas;
 import br.com.engsoft.utils.AlteraImagens;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -46,14 +47,17 @@ public class TelaGuicheA extends javax.swing.JFrame {
         btnGerarSenha = new javax.swing.JButton();
         tbtnPausarContinuar = new javax.swing.JToggleButton();
         tbtnPausarContinuar.setToolTipText("Pausar/Continuar Atendimento");
-        rbtnSenhaNormal = new javax.swing.JRadioButton();
-        rbtnSenhaPreferencial = new javax.swing.JRadioButton();
         lblTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        pnlTipoSenha = new javax.swing.JPanel();
+        rbtnSenhaPreferencial = new javax.swing.JRadioButton();
+        rbtnSenhaNormal = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
+        btnVoltar.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,8 +65,12 @@ public class TelaGuicheA extends javax.swing.JFrame {
             }
         });
 
+        lblNomeAtendente.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+
+        lblAtendente.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         lblAtendente.setText("Atendente:");
 
+        btnGerarSenha.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         btnGerarSenha.setText("Gerar Senha");
         btnGerarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,11 +85,15 @@ public class TelaGuicheA extends javax.swing.JFrame {
             }
         });
 
-        gbtnGerar.add(rbtnSenhaNormal);
-        rbtnSenhaNormal.setText("Normal");
-        rbtnSenhaNormal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("ATENDENTE A");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/logo64.png"))); // NOI18N
 
         gbtnGerar.add(rbtnSenhaPreferencial);
+        rbtnSenhaPreferencial.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         rbtnSenhaPreferencial.setText("Preferencial");
         rbtnSenhaPreferencial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rbtnSenhaPreferencial.addActionListener(new java.awt.event.ActionListener() {
@@ -89,9 +101,18 @@ public class TelaGuicheA extends javax.swing.JFrame {
                 rbtnSenhaPreferencialActionPerformed(evt);
             }
         });
+        pnlTipoSenha.add(rbtnSenhaPreferencial);
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblTitulo.setText("ATENDENTE A");
+        gbtnGerar.add(rbtnSenhaNormal);
+        rbtnSenhaNormal.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        rbtnSenhaNormal.setText("Normal");
+        rbtnSenhaNormal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rbtnSenhaNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSenhaNormalActionPerformed(evt);
+            }
+        });
+        pnlTipoSenha.add(rbtnSenhaNormal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,46 +121,44 @@ public class TelaGuicheA extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(rbtnSenhaPreferencial)
-                        .addGap(7, 7, 7)
-                        .addComponent(rbtnSenhaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnGerarSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(lblAtendente)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(lblTitulo))))
-                .addContainerGap())
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnGerarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tbtnPausarContinuar, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))))
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlTipoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtnSenhaPreferencial)
-                    .addComponent(rbtnSenhaNormal))
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlTipoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGerarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tbtnPausarContinuar))
-                .addGap(33, 33, 33)
-                .addComponent(btnVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAtendente)
-                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblNomeAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAtendente))
+                .addGap(1, 1, 1))
         );
 
         pack();
@@ -183,6 +202,10 @@ public class TelaGuicheA extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGerarSenhaActionPerformed
 
+    private void rbtnSenhaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSenhaNormalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnSenhaNormalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,21 +246,29 @@ public class TelaGuicheA extends javax.swing.JFrame {
     private javax.swing.JButton btnGerarSenha;
     private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup gbtnGerar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAtendente;
     public javax.swing.JLabel lblNomeAtendente;
     public javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel pnlTipoSenha;
     private javax.swing.JRadioButton rbtnSenhaNormal;
     private javax.swing.JRadioButton rbtnSenhaPreferencial;
     private javax.swing.JToggleButton tbtnPausarContinuar;
     // End of variables declaration//GEN-END:variables
 
     private void configuracaoTela() {
+        pnlTipoSenha.setBackground(new Color(211, 211, 211));
+        rbtnSenhaNormal.setBackground(new Color(211, 211, 211));
+        rbtnSenhaPreferencial.setBackground(new Color(211, 211, 211));
+        
+        this.getContentPane().setBackground(new Color(211, 211, 211));
         //Bloqueia o redimensionamento
         this.setResizable(false);
         //Coloca o jframe no centro
         this.setLocationRelativeTo(null);
         //Fechar toda a Aplicação ao clicar no botão Fechar
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tbtnPausarContinuar.requestFocus();
     }
 
 }

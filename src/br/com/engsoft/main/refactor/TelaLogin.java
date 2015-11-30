@@ -5,17 +5,17 @@
  */
 package br.com.engsoft.main.refactor;
 
-import br.com.engsoft.main.*;
 import br.com.engsoft.controll.ControleDeTelas;
 import br.com.engsoft.controll.UsuarioModelo;
 import br.com.engsoft.controll.ValidacaoLogin;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import br.com.engsoft.main.refactor.TelaPainel;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,16 +68,9 @@ public class TelaLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/queen8 .png"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 5;
-        gridBagConstraints.insets = new java.awt.Insets(10, 12, 17, 12);
-        getContentPane().add(lblLogo, gridBagConstraints);
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/engsoft/img/logo64.png"))); // NOI18N
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,13 +78,6 @@ public class TelaLogin extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.insets = new java.awt.Insets(4, 5, 7, 4);
-        getContentPane().add(btnLimpar, gridBagConstraints);
 
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,46 +89,18 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtSenhaKeyPressed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
-        gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 8);
-        getContentPane().add(txtSenha, gridBagConstraints);
 
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblUsuario.setText("Usuário:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 2);
-        getContentPane().add(lblUsuario, gridBagConstraints);
 
+        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSenha.setText("Senha:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 24);
-        getContentPane().add(lblSenha, gridBagConstraints);
 
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyPressed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 8);
-        getContentPane().add(txtUsuario, gridBagConstraints);
 
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,15 +108,47 @@ public class TelaLogin extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(4, 5, 5, 4);
-        getContentPane().add(btnEntrar, gridBagConstraints);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                            .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSenha)
+                            .addComponent(txtUsuario)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEntrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLimpar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnEntrar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -169,20 +159,32 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        pegaUsuarioSenha();
+        try {
+            pegaUsuarioSenha();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
-            pegaUsuarioSenha();
+            try {
+                pegaUsuarioSenha();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
-            pegaUsuarioSenha();
+            try {
+                pegaUsuarioSenha();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
 
@@ -249,31 +251,42 @@ public class TelaLogin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configuracaoTela() {
+        this.getContentPane().setBackground(new Color(211, 211, 211));
         //Bloqueia o redimensionamento
         this.setResizable(false);
         //Coloca o jframe no centro
         this.setLocationRelativeTo(null);
         //Fechar toda a Aplicação ao clicar no botão Fechar
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
     }
 
-    private void validarUsuarioSenha(String usuario, String senha) {
+    private void validarUsuarioSenha(String usuario, String senha) throws InterruptedException {
 
         usuarioM = new ValidacaoLogin().validarSenha(usuario.toUpperCase(), senha.toUpperCase());
 
         if (usuarioM.isValidado() == true) {
-            TelaModulos at = new TelaModulos();
-            atendente = usuarioM.getUsuario();
-            new ControleDeTelas().getOperacoesPermitidas(at, usuarioM);
 
-            at.setVisible(true);
-            this.setVisible(false);
+            if (usuario.contains("PAINEL")) {
+                TelaPainel.painelGuiche = usuario.replace("PAINEL", "");
+                TelaPainel tp = new TelaPainel();
+                tp.setVisible(true);
+                this.setVisible(false);
+            } else {
+                TelaModulos at = new TelaModulos();
+                atendente = usuarioM.getUsuario();
+                new ControleDeTelas().getOperacoesPermitidas(at, usuarioM);
+
+                at.setVisible(true);
+                this.setVisible(false);
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto!");
         }
     }
 
-    private void pegaUsuarioSenha() {
+    private void pegaUsuarioSenha() throws InterruptedException {
 
         String usuario = txtUsuario.getText().toUpperCase();
         String senha = txtSenha.getText().toUpperCase();

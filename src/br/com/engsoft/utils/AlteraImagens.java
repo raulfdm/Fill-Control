@@ -24,6 +24,7 @@ public class AlteraImagens {
 //pacote onde estao as imagens no seu projeto
             String diretorio = "/br/com/engsoft/img/continue.png";
             URL resource = getClass().getResource(diretorio);
+            //Thread.currentThread().getContextClassLoader().getResource("pl/shenlon/io/gui/appData/list.txt").getFile()
             File file = new File(resource.toURI());
             //setando o icone
             ImageIcon logo = new ImageIcon(file.getPath());
